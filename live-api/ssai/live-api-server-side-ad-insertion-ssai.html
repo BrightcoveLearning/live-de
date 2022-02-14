@@ -1,488 +1,53 @@
-﻿<!doctype html>
-<html lang="de">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="In diesem Thema erfahren Sie, wie Sie serverseitige Anzeigeneinfügung (SSAI) für Ihre Live-Stream-Jobs einrichten.">
-  
-  <title>Brightcove Live-API: Serverseitige Anzeigeneinfügung (SSAI)</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">  
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
-  <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
-  <script src="/assets/js/sajari-head.js"></script>
-</head>
-
-<body class="body">
-
-<header>
-  <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Live_Logo.svg" alt="Produkt-Logo" style="max-height: 100px;max-width: 232px;"/></a>
-<!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
-
-<script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
+---
+title: 'Brightcove Live-API: ' Beschreibung der serverseitigen Anzeigeneinfügung (SSAI): In diesem Thema erfahren Sie, wie Sie die serverseitige Anzeigeneinfügung (SSAI) für Ihre Livestream-Jobs einrichten.
+parent: SSAI 
+grandparent: Live API
+---
+ <h1>Diese Seite ist umgezogen - Sie werden weitergeleitet zum <a href="https://apis.support.brightcove.com/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">neuen Ort</a> in 3 Sekunden. Bitte aktualisiere deine Lesezeichen!</h1>
+<script type="text/javascript">
+var t = setTimeout (Funktion () { window.location.href = 'https://apis.support.brightcove.com/live-api/ssai/live-api-server-side-ad-insertion-ssai.html'; }, 3000);
 </script>
-
-    
-
-
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="Support"/> Kontaktieren Sie Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="Systemstatus"/> Systemstatus</a></span> <br/>
-    
-  </div>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">Nach Hause</a></li>
-      
-      
-      
-      <li class="breadcrumb-item"><a href="/live-api/ssai/">SSAI</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">Brightcove Live-API: Serverseitige Anzeigeneinfügung (SSAI)</li>
-    </ol>
-  </nav>
-</header>
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Weitere Brightcove Docs</option>
-          
-            
-              <option value="https://support.brightcove.com">Dokumentation Home</option>
-            
-          
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Publikum</option>
-            
-          
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove Leuchtfeuer</option>
-            
-          
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove Kampagne</option>
-            
-          
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
-          
-            
-              <option value="https://live.support.brightcove.com">Brightcove Live</option>
-            
-          
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-            
-          
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
-          
-            
-              <option value="https://social.support.brightcove.com">Brightcove Social</option>
-            
-          
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
-          
-            
-              <option value="https://player.support.brightcove.com">Brightcove Spieler-Entwicklung</option>
-            
-          
-            
-              <option value="https://apis.support.brightcove.com">APIs für Video Cloud-Plattform</option>
-            
-          
-            
-              <option value="https://sdks.support.brightcove.com">Videocloud-Geräte-SDKs</option>
-            
-          
-            
-              <option value="https://integrations.support.brightcove.com">Integrationen und CMS-Konnektoren</option>
-            
-          
-            
-              <option value="https://general.support.brightcove.com">Video Cloud — Allgemeine Informationen</option>
-            
-          
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
-          
-        </select>
-
-        <nav class="sidenav" id="side_nav">
-          
-            
-            <h5><a href="/index.html">Nach Hause</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/get-started/index.html">Erste Schritte <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcove Live-Schulungsvideos</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/delivering-live-streams.html">Bereitstellen von Livestreams</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">Richtlinien und Best Practices für Live-Module</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Schritt für Schritt: Verwenden des Live-Moduls mit OSP</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Schritt für Schritt: Verwenden des Live-Moduls mit Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/index.html">Allgemeine Informationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/live-drm.html">Live-DRM</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-platforms-comparison-matrix.html">Vergleichsmatrix für Live-Plattformen</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-video-glossary.html">Live-Video-Glossar</a></li>
-                  
-                
-                  
-                    <li><a href="/general/reducing-latency-live-streams.html">Reduzierung der Latenz für Live-Streams</a></li>
-                  
-                
-                  
-                    <li><a href="/general/supported-encoders-live-events.html">Unterstützte Encoder für Live-Events</a></li>
-                  
-                
-                  
-                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Verwenden von Akamai Stream Packaging und Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-module/index.html">Verwenden des Live-Moduls <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">Clientseitige Preroll-Anzeigen mit Live SSAI</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">Erstellen und Verwalten von Live-Events</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-video-clip-using-live-module.html">Erstellen eines Videoclips</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">Gastgeber-Avaya-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Hosten Sie Cisco Webex zu Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">Host Zoom auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">Veranstalten Sie ein INXPO-Event auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">Implementierung von serverseitigen Anzeigen</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/live-redundancy.html">Live-Redundanz</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-facebook.html">Veröffentlichen eines Live-Events auf Facebook</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-youtube.html">Veröffentlichen einer Live-Veranstaltung auf YouTube</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/reviewing-live-analytics.html">Überprüfung von Live-Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">Verwenden von Live-RTMP-Ausgaben</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-api/index.html">Arbeiten mit der Live-API <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/getting-started/index.html">Live-API: Anfangen <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">Übersicht: Live-AP</a></li>
-                        
-                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Erstellen eines Live-Streams mit der API</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/code-samples/index.html">Live-API: Codebeispiele <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">Erstellen Sie einen Live-Job</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">Erstellen Sie einen Live-Job für MPEG2-TS-Eingabe</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">Verwenden von RTMP-Ausgaben für Live-Events</a></li>
-                        
-                        <li><a href="/live-api/code-samples/simulated-live.html">Simuliertes Live-Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/references/index.html">Live-API: Verweise <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/references/live-api-error-messages.html">Fehler-Meldungen</a></li>
-                        
-                        <li><a href="/live-api/references/live-api-release-notes.html">Anmerkungen zur</a></li>
-                        
-                        <li><a href="/live-api/references/reference.html">Live-API-Referenz</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/ssai/index.html">Live-API: SSAI <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Cue-Points und Ad Beacons mit SSAI</a></li>
-                        
-                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">Serverseitige Anzeigeneinfügung (SSAI)</a></li>
-                        
-                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">Übersicht: Spieler-Verbesserungen für Live SSAI</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/guides/index.html">Live-API: Anleitungen <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">Best Practices von Brightcove Live</a></li>
-                        
-                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcove Live-Programm Ad Metadaten-API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">Erstellen eines rahmengenauen Clips</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">Erstellen von VOD-Clips</a></li>
-                        
-                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">Eine Liste von Live- oder VOD-Jobs abrufen</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">Einfügen von zeitgesteuerten ID3-Metad</a></li>
-                        
-                        <li><a href="/live-api/guides/live-drm-live-api.html">Live-DRM über die Live-API</a></li>
-                        
-                        <li><a href="/live-api/guides/managing-credentials-live-api.html">Verwalten von Anmeldeinformationen für die Live-API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-notifications.html">Benachrichtigungen</a></li>
-                        
-                        <li><a href="/general/reducing-latency-live-streams.html">Reduzierung der Latenz für Live-Streams</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP-Ausgänge</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-static-entry-points.html">Statische Eintritt</a></li>
-                        
-                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">Signierte URLs und Token Auth mit einem Live Stream</a></li>
-                        
-                        <li><a href="/live-api/guides/using-live-redundancy.html">Verwenden von Live-Redundanz</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-vod-live-event.html">VOD von Live-Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/admin/index.html">Konten verwalten <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">Erstellen von benutzerdefinierten Live-Ingest-Profilen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">Felder für benutzerdefinierte Live-Aufgaufzeichnungsprofile</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-live-settings.html">Verwalten von Live-Einstellungen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-api-authentication-credentials.html">Verwalten von Anmeldedaten für API-</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/standard-live-ingest-profiles.html">Standard-Live-Ingest-Profile</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/release-notes/index.html">Versionsinformationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/release-notes/live-api-release-notes.html">Live-Release-Hinweise</a></li>
-                  
-                
-                  
-                    <li><a href="/release-notes/known-issues.html">Bekannte Probleme</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html">unterstützung <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Systemstatus von Brightcove“</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">Kontakt mit dem Vertrieb</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
-                  
-                
-              </ul>
-            
-          
-      </nav>
-    </div>
-    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
-  <!-- bootstrap layout -->
-
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Menü „Navigation"/></p>
-
-<!-- search bar -->
-<div id="nav-search-box" style="margin-top: 1rem;"></div>
-<!-- in-page navigation for narrow screens -->
-<details class="centered-inpage-nav" id="centered_inpage_nav">
-  <summary><h6 class="toc">Inhalt der Seite</h6></summary>
-  <nav id="centered_toc"></nav>
-  <ul id="centered_in_page_toc" class="list-none"></ul>
-</details>
-<!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="in neuem Tab öffnen" style="margin-top:4em;width: 1.5em;"/></a>
-
-
-
-  
-    
-
-
-<h1>Brightcove Live-API: Serverseitige Anzeigeneinfügung (SSAI)</h1>
+<h1>{{ page.title }}</h1>
 <article class="bcls-article">
-  <summary>In diesem Thema erfahren Sie, wie Sie serverseitige Anzeigeneinfügung (SSAI) für Ihre Live-Stream-Jobs einrichten.</summary>
+  <summary>{{ page.description }}</summary>
 
-  
+  {% raw %}
 <section class="bcls-section">
-<h2 id="Overview">Übersicht</h2>
+<h2 id="Overview">Überblick</h2>
 
-<p><span translate="No">SSAI</span> ermöglicht es Ihnen, Anzeigen während eines Live-Streaming-Events zu bestimmten Zeiten anzuzeigen. Zu den Hauptmerkmalen gehören:</p>
+<p><span translate="No">SSAI</span> ermöglicht Ihnen die Anzeige von Anzeigen während eines Live-Streaming-Ereignisses zu bestimmten Zeiten. Die Hauptmerkmale umfassen:</p>
 
 <ul>
-	<li>Fügen Sie Anzeigen mit Cue-Points ein, die von Ihrem Encoder gesendet wurden, oder erstellen Sie mit dem <span translate="No">Live API</span></li>
-	<li>Erhalten Sie „Slate“ -Assets, um ungenutzte Werbezeit zu füllen</li>
-	<li>Vermeiden Sie Werbeblocker mit Anzeigen, die auf der Serverseite in den Livestream eingefügt werden</li>
+	<li>Fügen Sie Anzeigen mit Cue-Points ein, die von Ihrem Encoder gesendet werden, oder erstellen Sie einen Instant-Cue-Point mit dem <span translate="No">Live-API</span></li>
+	<li>Nehmen Sie "Slate" -Anlagen auf, um nicht genutzte Werbezeiten zu füllen</li>
+	<li>Vermeiden Sie Werbeblocker mit Anzeigen, die auf der Serverseite in den Live-Stream eingebunden sind</li>
 </ul>
 
-<aside class="bcls-aside bcls-aside--information">Bevor Sie es verwenden können <span translate="No">SSAI</span>, muss es für Ihr Konto aktiviert sein. Ihr Kontomanager teilt Ihnen gerne weitere Details hierzu mit.</aside>
+<aside class="bcls-aside bcls-aside--information">
+  <ul>
+    <li>Bevor Sie <span translate="No">SSAI verwenden können</span>, muss es für Ihr Konto aktiviert sein. Wenden Sie sich an Ihren Account Manager, um weitere Informationen zu erhalten.</li>
+ </ul>
+
+
+</aside>
 
 <p>Gehen Sie folgendermaßen vor, um einen Live-Stream mit serverseitigen Anzeigen zu erstellen:</p>
 
 <ol class="bcls-tasklist-restart">
-	<li><a href="#General_information">Überprüfen Sie die allgemeinen Informationen über die Live-API</a></li>
-	<li><a href="#Create_an_ad_configuration">Erstellen Sie eine Live-Anzeigenkonfiguration</a>. Sie können dies auch in <a href="https://studio.support.brightcove.com/admin/configuring-server-side-ad-settings.html#bc-ipnav-1">Video Cloud Studio</a>tun. In den folgenden Abschnitten finden Sie Details zur Verwaltung Ihrer Anzeigenkonfigurationen mit der Live-API.</li>
-	<li><a href="#Managing_slates">Erstellen Sie Slate-Assets</a>. Wenn Sie eine Benutzeroberfläche bevorzugen, können Sie <a href="/live-module/implementing-server-side-ads-live-module.html#fill_slate">Schiefer in Studio verwalten</a>.</li>
-	<li>Optional: <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Fügen Sie Cue-Points und Ad Beacons</a>ein.</li>
-	<li>Jetzt können Sie <a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">mit der Live-API einen Live-Stream erstellen</a>. Wenn Sie es vorziehen, Studio zu verwenden, können Sie <a href="/live-module/implementing-server-side-ads-live-module.html">serverseitige Anzeigen im Live-Modul implementieren</a></li>
+	<li><a href="#General_information">Überprüfen Sie die allgemeinen Informationen zur Live-API</a></li>
+	<li><a href="#Create_an_ad_configuration">Erstellen Sie eine Live-Anzeigenkonfiguration</a>. Sie können dies auch in tun <a href="https://studio.support.brightcove.com/admin/configuring-server-side-ad-settings.html#bc-ipnav-1">Video Cloud Studio</a>. In den folgenden Abschnitten finden Sie Details zum Verwalten Ihrer Anzeigenkonfigurationen mithilfe der Live-API.</li>
+	<li><a href="#Managing_slates">Erstellen Sie Schiefer-Assets</a>. Wenn Sie eine Benutzeroberfläche bevorzugen, können Sie <a href="/live-module/implementing-server-side-ads-live-module.html#fill_slate">Slates in Studio verwalten</a>.</li>
+	<li>Optional: <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Fügen Sie Cue-Points und Ad Beacons ein</a>.</li>
+	<li>Jetzt sind Sie bereit dazu <a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Erstellen Sie einen Live-Stream mit der Live-API</a>. Wenn Sie Studio bevorzugen, können Sie dies tun <a href="/live-module/implementing-server-side-ads-live-module.html">Implementieren Sie serverseitige Anzeigen im Live-Modul</a></li>
 </ol>
 
-<p>Im Rest dieses Dokuments finden Sie Details zu benutzerdefinierten Headern, Anzeigenkonfigurationsvariablen, der Verwendung von DFP- und Werbemakros.</p>
+<p>Weitere Informationen zu benutzerdefinierten Headern, Anzeigenkonfigurationsvariablen, DFP- und Anzeigenmakros finden Sie im Rest dieses Dokuments.</p>
 </section>
 
 <section class="bcls-section">
-<h2 id="General_information">Allgemeine Informationen</h2>
+<h2 id="General_information">Allgemeine Information</h2>
 
-<p>Die folgenden Informationen beziehen sich auf alle Live-APIs mit SSAI-Anfragen.</p>
+<p>Die folgenden Informationen beziehen sich auf alle Live-APIs mit SSAI-Anforderungen.</p>
 
 <h3>Basis-URL</h3>
 
@@ -493,24 +58,24 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 
 <h3>Authentifizierung</h3>
 
-<p>Die Authentifizierung für Anfragen erfordert einen Header mit einem API-Schlüssel:</p>
+<p>Die Authentifizierung für Anforderungen erfordert einen Header mit einem API-Schlüssel:</p>
 
 <pre class="line-numbers">
     <code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span>
     </code></pre>
 
-<p>Wenden Sie sich an Ihren Kundenbetreuer, um einen API-Schlüssel für Ihr Konto zu erhalten.</p>
+<p>Wenden Sie sich an Ihren Account Manager, um einen API-Schlüssel für Ihr Konto zu erhalten.</p>
 </section>
 
 <section class="bcls-section">
-<h2 id="Create_an_ad_configuration">Erstellen einer Anzeigenkonfiguration</h2>
+<h2 id="Create_an_ad_configuration">Erstellen Sie eine Anzeigenkonfiguration</h2>
 
-<p>Um eine neue Anzeigenkonfiguration zu erstellen, senden Sie eine <code translate="No">POST</code> Anfrage wie folgt:</p>
+<p>Senden Sie a, um eine neue Anzeigenkonfiguration zu erstellen <code translate="No">POST</code> Anfrage wie folgt:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">POST</code></td>
 		</tr>
 		<tr>
@@ -518,13 +83,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/applications</code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h3>Muster-Anfrage</h3>
+<h3>Beispielanforderungshauptteil</h3>
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
       "application_ad_configuration": {
@@ -547,9 +112,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       "application_description": "Human readable description of the ad application",
       "account_id": "<span class="bcls-input">User's Account ID [Optional]</span>"
     }</code></pre>
-<aside class="bcls-aside bcls-aside--information">Das <code translate="No">account_id </code> Feld ist die Live-Konto-ID. Wenn nicht angegeben, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
+<aside class="bcls-aside bcls-aside--information">Die <code translate="No">account_id </code> Feld ist die Live-Konto-ID. Wenn es weggelassen wird, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
 
-<h3>Sample-Antwort</h3>
+<h3>Beispielantwort</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -580,14 +145,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Update_an_ad_configuration">Aktualisieren einer Anzeigenkonfiguration</h2>
+<h2 id="Update_an_ad_configuration">Aktualisieren Sie eine Anzeigenkonfiguration</h2>
 
-<p>Das Aktualisieren einer Anzeigenkonfiguration ähnelt dem Erstellen einer Anzeigenkonfiguration. Stellen Sie eine <code translate="No">PUT</code> Anfrage wie folgt:</p>
+<p>Das Aktualisieren einer Anzeigenkonfiguration ähnelt dem Erstellen einer Anzeigenkonfiguration. Mach ein <code translate="No">PUT</code> Anfrage wie folgt:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">PUT</code></td>
 		</tr>
 		<tr>
@@ -595,13 +160,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/applications/application/<span class="bcls-input">Application_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h3>Muster-Anfrage</h3>
+<h3>Beispielanforderungshauptteil</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -626,9 +191,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       "account_id": "<span class="bcls-input">User's Account ID [Optional]</span>"
     }</code></pre>
 
-<aside class="bcls-aside bcls-aside--information">Das <code translate="No">account_id </code> Feld ist die Live-Konto-ID. Wenn nicht angegeben, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
+<aside class="bcls-aside bcls-aside--information">Die <code translate="No">account_id </code> Feld ist die Live-Konto-ID. Wenn es weggelassen wird, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
 
-<h3>Sample-Antwort</h3>
+<h3>Beispielantwort</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -656,14 +221,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Get_all_ad_configurations">Alle Anzeigenkonfigurationen abrufen</h2>
+<h2 id="Get_all_ad_configurations">Holen Sie sich alle Anzeigenkonfigurationen</h2>
 
-<p>Um alle Anzeigenkonfigurationen für ein Konto abzurufen, senden Sie eine <code translate="No">GET </code> Anfrage wie folgt:</p>
+<p>Senden Sie a, um alle Anzeigenkonfigurationen für ein Konto abzurufen <code translate="No">GET </code> Anfrage wie folgt:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
 		</tr>
 		<tr>
@@ -671,15 +236,15 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/applications/account/<span class="bcls-input">Account_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<aside class="bcls-aside bcls-aside--information">Das <code translate="No">Account_ID</code> hier ist die Live-Konto-ID.</aside>
+<aside class="bcls-aside bcls-aside--information">Die <code translate="No">Account_ID</code> Hier ist die Live-Konto-ID.</aside>
 
-<h3>Sample-Antwort</h3>
+<h3>Beispielantwort</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">[
@@ -716,14 +281,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Get_an_ad_configuration">Holen Sie sich eine Anzeigenkon</h2>
+<h2 id="Get_an_ad_configuration">Holen Sie sich eine Anzeigenkonfiguration</h2>
 
-<p>Sie können eine bestimmte Anzeigenkonfiguration auch abrufen, <code translate="No">application_id </code> indem Sie eine <code translate="No">GET</code> Anfrage wie folgt senden:</p>
+<p>Sie können eine bestimmte Anzeigenkonfiguration auch über deren abrufen <code translate="No">application_id </code> durch Senden eines <code translate="No">GET</code> Anfrage wie folgt:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
 		</tr>
 		<tr>
@@ -731,13 +296,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/applications/application/<span class="bcls-input">Application_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h3>Sample-Antwort</h3>
+<h3>Beispielantwort</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -760,14 +325,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Delete_an_ad_configuration">Löschen einer Anzeigenkonfiguration</h2>
+<h2 id="Delete_an_ad_configuration">Löschen Sie eine Anzeigenkonfiguration</h2>
 
-<p>Um eine Anzeigenkonfiguration zu löschen, senden Sie eine <code translate="No">DELETE</code> Anfrage wie folgt:</p>
+<p>Senden Sie eine, um eine Anzeigenkonfiguration zu löschen <code translate="No">DELETE</code> Anfrage wie folgt:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">DELETE</code></td>
 		</tr>
 		<tr>
@@ -775,13 +340,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/applications/application/<span class="bcls-input">APPLICATION_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h3>Sample-Antwort</h3>
+<h3>Beispielantwort</h3>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -791,20 +356,20 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Managing_slates">Verwaltung von Schiefertchen</h2>
+<h2 id="Managing_slates">Schiefer verwalten</h2>
 
-<p>Schiefer sind Ihre eigenen Vermögenswerte, die verwendet werden, um ungenutzte Werbezeit zu füllen. Sie können Schiefer verwenden, um eine „zurück sein“ -Nachricht oder einen beliebigen Inhalt bereitzustellen.</p>
+<p>Slates sind Ihre eigenen Assets, mit denen Sie nicht genutzte Werbezeiten füllen. Sie können Slates verwenden, um eine "Be Right Back" -Nachricht oder einen beliebigen Inhalt bereitzustellen.</p>
 
-<p>Im Folgenden finden Sie Details für die API-Anfragen zum Hinzufügen und Verwalten von Slate-Assets.</p>
+<p>Nachfolgend finden Sie Details zu den API-Anforderungen zum Hinzufügen und Verwalten von Slate-Assets.</p>
 
-<h3>Slate-Asset hinzufügen</h3>
+<h3>Schieferobjekt hinzufügen</h3>
 
-<p>Um ein neues Slate-Medienquellen-Asset aufzutragen, senden Sie eine <code translate="No">POST</code> Anfrage:</p>
+<p>Senden Sie a, um ein neues Slate-Medienquellen-Asset aufzunehmen <code translate="No">POST</code> Anfrage:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">POST</code></td>
 		</tr>
 		<tr>
@@ -812,13 +377,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/slates</code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h4>Muster-Anfrage</h4>
+<h4>Beispielanforderungshauptteil</h4>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -829,9 +394,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </code>
     </pre>
 
-<aside class="bcls-aside bcls-aside--information">Das <code translate="No">account_id </code> hier ist die Live-Konto-ID. Wenn nicht angegeben, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
+<aside class="bcls-aside bcls-aside--information">Die <code translate="No">account_id </code> Hier ist die Live-Konto-ID. Wenn es weggelassen wird, wird die Konto-ID des anfragenden Benutzers verwendet.</aside>
 
-<h4>Sample-Antwort</h4>
+<h4>Beispielantwort</h4>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -844,16 +409,16 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       "media_source_asset_description": "User identifiable description for the slate"
     }</code></pre>
 
-<aside class="bcls-aside bcls-aside--information">Hinweis: Diese Einstellung <code translate="No">media_source_asset_default</code> wird derzeit <strong>nicht</strong> unterstützt.</aside>
+<aside class="bcls-aside bcls-aside--information">Hinweis: diese Einstellung <code translate="No">media_source_asset_default</code> ist <strong>nicht</strong> in dieser Zeit unterstützt.</aside>
 
-<h3>Schieferanlage löschen</h3>
+<h3>Schieferobjekt löschen</h3>
 
-<p>Um ein Slate-Medienquellen-Asset zu löschen, senden Sie eine <code translate="No">DELETE</code> Anfrage:</p>
+<p>Senden Sie a, um ein Slate-Medienquellen-Asset zu löschen <code translate="No">DELETE</code> Anfrage:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">DELETE</code></td>
 		</tr>
 		<tr>
@@ -861,13 +426,13 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/slates/slate/<span class="bcls-input">Slate_MSA_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<h4>Sample-Antwort</h4>
+<h4>Beispielantwort</h4>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">{
@@ -879,14 +444,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       "account_id": "ACCOUNT_ID"
     }</code></pre>
 
-<h3>Holen Sie sich Schiefer-As</h3>
+<h3>Holen Sie sich Schiefer Vermögenswerte</h3>
 
-<p>Sie können ein Array aller Slate-Medienquell-Assets für ein Konto abrufen, indem Sie eine <code translate="No">GET</code> Anfrage senden:</p>
+<p>Sie können ein Array aller Slate-Media-Quellressourcen für ein Konto abrufen, indem Sie eine senden <code translate="No">GET</code> Anfrage:</p>
 
 <table class="bcls-table">
 	<tbody class="bcls-table__body">
 		<tr>
-			<th>-Methode</th>
+			<th>Methode</th>
 			<td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
 		</tr>
 		<tr>
@@ -894,15 +459,15 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 			<td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/slates/account/<span class="bcls-input">Account_ID</span></code></td>
 		</tr>
 		<tr>
-			<th>Überschrift</th>
+			<th>Header</th>
 			<td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
 		</tr>
 	</tbody>
 </table>
 
-<aside class="bcls-aside bcls-aside--information">Das <code translate="No">Account_ID </code> hier ist die Live-Konto-ID.</aside>
+<aside class="bcls-aside bcls-aside--information">Die <code translate="No">Account_ID </code> Hier ist die Live-Konto-ID.</aside>
 
-<h4>Sample-Antwort</h4>
+<h4>Beispielantwort</h4>
 
 <pre class="line-numbers">
     <code class="language-json" translate="No">[
@@ -932,86 +497,93 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 
 <h3>Anzeigen-Tag</h3>
 
-<p>Wenn Sie ein Anzeigen-Tag für Live erstellen, achten Sie darauf, dass Sie die richtigen Richtlinien befolgen und einschließen <code translate="No">/live </code>. Weitere Informationen finden Sie im DFP-Dokument <a href="https://support.google.com/dfp_premium/answer/1068325?hl=en">Erstellen eines Mastervideo-Tags manuell</a> .</p>
+<p>Stellen Sie beim Erstellen eines Anzeigen-Tags für Live sicher, dass Sie die entsprechenden Richtlinien befolgen und einschließen <code translate="No">/live </code>. Siehe das DFP-Dokument <a href="https://support.google.com/dfp_premium/answer/1068325?hl=en">Erstellen Sie manuell ein Master-Video-Tag</a> für alle Details.</p>
 
 <h3>Parallelität</h3>
 
 <p>Wenn Sie eine hohe Parallelität erwarten, empfehlen wir Ihnen, mit Ihrem DFP-Kontoteam zu sprechen.</p>
 
-<h3>Einzelne/mehrfache Werbeantworten</h3>
+<h3>Einzel- / Mehrfachanzeigenantworten</h3>
 
-<p>Das <code translate="No">singleadresponse </code> und <code translate="No">multiadresponse </code> Parameter werden derzeit nicht von verwendet <span translate="No">SSAI</span>.</p>
+<p>Die <code translate="No">singleadresponse </code> und <code translate="No">multiadresponse </code> Parameter werden derzeit nicht verwendet von <span translate="No">SSAI</span>.</p>
 
-<p>Live führt <span translate="No">SSAI</span> nur einen einzelnen Anzeigeserver-Aufruf durch und erwartet, dass die Antwort alle Anzeigen für die Pause enthält, mit der Ausnahme, dass sie allen erforderlichen Werbebuchungen mit einem Limit von 5 Weiterleitungen pro Anzeige folgt. Die folgenden Anzeigenantwortformate werden akzeptiert und wie folgt analysiert:</p>
+<p>Live <span translate="No">SSAI</span> führt nur einen einzigen Ad-Server-Aufruf aus und erwartet, dass die Antwort alle Anzeigen für die Unterbrechung enthält, mit der Ausnahme, dass sie allen erforderlichen Anzeigen-Wrappern mit einem Limit von 5 Weiterleitungen pro Anzeige folgt. Die folgenden Anzeigenantwortformate werden akzeptiert und wie folgt analysiert:</p>
 
 <ul>
-	<li>VAST - Einzelne Antwort oder ein Pod mit Anzeigen in einer einzigen Antwort</li>
-	<li>DFP Ad Rules - Aggregiert alle verfügbaren Anzeigen in der Antwort, einschließlich vor-, mittel- und postroll-definierter Anzeigen</li>
-	<li>Smart XML - Aggregiert alle verfügbaren Anzeigen in der Antwort, einschließlich vor-, mittel- und postroll-definierter Anzeigen</li>
+	<li>VAST - Einzelne Antwort oder eine Ansammlung von Anzeigen in einer einzelnen Antwort</li>
+	<li>DFP-Anzeigenregeln - Aggregiert alle verfügbaren Anzeigen in der Antwort, einschließlich definierter Anzeigen vor, während und nach dem Roll</li>
+	<li>Smart XML - Aggregiert alle verfügbaren Anzeigen in der Antwort, einschließlich definierter Anzeigen vor, während und nach dem Roll</li>
 </ul>
 </section>
 
 <section class="bcls-section">
 <h2 id="Custom_headers_for_ad_requests">Benutzerdefinierte Header für Anzeigenanfragen</h2>
 
-<p>Die <span translate="No">SSAI</span> Plattform kann benutzerdefinierte Header mit den Anzeigenaufrufen und allen von der Backend-Plattform verwendeten Beacons übergeben. Einige Werbeserver wie VideoPlaza benötigen benutzerdefinierte Header.</p>
+<p>Die <span translate="No">SSAI</span> Plattform kann benutzerdefinierte Header mit den Anzeigenaufrufen und allen von der Back-End-Plattform verwendeten Beacons übergeben. Einige Ad-Server wie VideoPlaza erfordern benutzerdefinierte Header.</p>
 
-<p>Benutzerdefinierte Header werden als Satz von Schlüssel-Wert-Paaren in einem <code translate="No">ad_configuration_headers</code> Objekt angegeben, das Teil des ist <code translate="No">application_ad_configuration </code> (siehe Abschnitt <a href="#Create_an_ad_configuration">Anzeigenkonfiguration erstellen</a> ).</p>
+<p>Benutzerdefinierte Header werden als Satz von Schlüssel-Wert-Paaren in einem angegeben <code translate="No">ad_configuration_headers</code> Objekt, das Teil des ist <code translate="No">application_ad_configuration </code> (siehe die <a href="#Create_an_ad_configuration">Erstellen Sie eine Anzeigenkonfiguration</a> Sektion).</p>
 
-<h3>Hinweise</h3>
+<h3>Anmerkungen</h3>
 
 <ul>
-	<li>Standard-Header werden standardmäßig behandelt wie:
+	<li>Standardheader werden standardmäßig behandelt, z. B.:
 	<ul>
 		<li><code translate="No">X-Forwarded-For </code></li>
 		<li><code translate="No">X-Device-User-Agent </code></li>
 	</ul>
 	</li>
-	<li>Header-Werte können die <a href="#Ad_configuration_variables">Anzeigenkonfigurationsvariablen</a>verwenden</li>
-	<li>Header-Werte können auch statische Strings sein</li>
+	<li>Header-Werte können die verwenden <a href="#Ad_configuration_variables">Anzeigenkonfigurationsvariablen</a></li>
+	<li>Header-Werte können auch statische Zeichenfolgen sein</li>
 </ul>
 
-<aside class="bcls-aside bcls-aside--warning">Header werden an alle Downstream-Anfragen weitergegeben, einschließlich Ad-Wrapper oder Impressionen/Quartiles, daher sollten Sie sie mit Vorsicht verwenden.</aside>
+<aside class="bcls-aside bcls-aside--warning">Header werden an alle nachgelagerten Anfragen weitergegeben, einschließlich Werbeverpackungen oder Impressionen/Quartil, daher sollten Sie sie mit Vorsicht verwenden.</aside>
 </section>
 
 <section class="bcls-section">
-<h2 id="Targeting_ads_using_ad_macros">Targeting von Anzeigen mit Werbemakros</h2>
+<h2 id="Targeting_ads_using_ad_macros">Targeting von Anzeigen mithilfe von Anzeigenmakros</h2>
 
-<p>Wenn Sie <a href="#Create_an_ad_configuration">eine Anzeigenkonfiguration erstellen</a>, sieht Ihr Anzeigen-Tag normalerweise in etwa so aus:</p>
+<p>Wenn du <a href="#Create_an_ad_configuration">Erstellen Sie eine Anzeigenkonfiguration</a> Normalerweise sieht Ihr Anzeigen-Tag folgendermaßen aus:</p>
 
 <pre>
       <code class="language-http" translate="No">https://ad-provider-host.com/path/to/ad-handler?ip={{client.ipaddress}}&amp;
       num={{random.int32}}&amp;ses={{session.session_id}}&amp;IDFA={{deviceid}}&amp;
       sitesection={{sitesection}}&amp;breakid={{breakid}}&amp;breaktheme={{breaktheme}}</code></pre>
 
-<p>Die Elemente innerhalb der doppelten geschweiften Klammern sind Variablen, auch Werbemakros genannt, die Brightcove Live beim Senden der Anzeigenanfrage durch Werte ersetzt, falls sie existieren.</p>
+<p>Die Elemente in den doppelten geschweiften Klammern sind Variablen, auch Anzeigenmakros genannt, die Brightcove Live beim Senden der Anzeigenanforderung durch Werte ersetzt, sofern vorhanden.</p>
 
-<aside class="bcls-aside bcls-aside--information">Die Variablen, die nützlich sein werden, hängen vom Ad-Server ab.</aside>
+<aside class="bcls-aside bcls-aside--information">
+  <p>Anmerkungen:</p>
+  <ul>
+    <li>Welche Variablen nützlich sind, hängt vom Ad-Server ab.</li>
+    <li>Der Brightcove-URI codiert jeden Wert, der in die Ad-Server-URL eingefügt wird.</li>
+    <li>Wenn für einen Schlüssel mehrere Werte vorhanden sind, können die codierten Variablen vom Ad-Server nicht gelesen werden. Dies liegt an der URI-Codierung.</li>
+  </ul>
+</aside>
 
-<p>Anzeigenmakrowerte können auf folgende Weise bereitgestellt werden:</p>
+<p>Anzeigenmakrowerte können auf folgende Arten bereitgestellt werden:</p>
 
 <ul>
-	<li><a href="#Using_header_information">Verwenden von Header-Informationen</a></li>
-	<li><a href="#Appending_the_URL">Anhängen der URL</a></li>
-	<li><a href="#Adding_URLs_dynamically">Hinzufügen von URLs dynamisch</a></li>
-	<li><a href="#Using_manual_cue_points">Verwenden von manuellen Cue-Po</a></li>
+	<li><a href="#Using_header_information">Header-Informationen verwenden</a></li>
+	<li><a href="#Appending_the_URL">URL anhängen</a></li>
+	<li><a href="#Adding_URLs_dynamically">URLs dynamisch hinzufügen</a></li>
+	<li><a href="#Using_manual_cue_points">Verwenden manueller Cue-Points</a></li>
 </ul>
 
-<h3 id="Using_header_information">Verwenden von Header-Informationen</h3>
+<h3 id="Using_header_information">Header-Informationen verwenden</h3>
 
-<p>Header-Informationen, die im obigen Abschnitt <a href="#Ad_configuration_variables">Ad-Konfigurationsvariablen</a> beschrieben werden, sind für jede Anfrage verfügbar. Geben Sie einfach die gewünschten Variablen mit den entsprechenden Schlüsselnamen in Ihrer Anzeigenkonfiguration an.</p>
+<p>Header-Informationen, detailliert in der <a href="#Ad_configuration_variables">Anzeigenkonfigurationsvariablen</a> Abschnitt oben, ist für jede Anfrage verfügbar. Geben Sie einfach die gewünschten Variablen mit den entsprechenden Schlüsselnamen in Ihrer Anzeigenkonfiguration an.</p>
 
-<h3 id="Appending_the_URL">Anhängen der URL</h3>
+<h3 id="Appending_the_URL">URL anhängen</h3>
 
-<p>Zusätzliche Sitzungswerte können wie folgt an die URL für den Livestream angehängt werden:</p>
+<p>Zusätzliche Sitzungswerte können wie folgt an die URL für den Live-Stream angehängt werden:</p>
 
 <pre>
       <code class="language-http" translate="No">http://playback.bcovlive.io/e058d9f2737e18/us-west-2/NA/
       playlist.m3u8<span class="bcls-highlight">?deviceid=123456&amp;sitesection=services</span>"</code></pre>
 
-<h3 id="Adding_URLs_dynamically">Hinzufügen von URLs dynamisch</h3>
+<h3 id="Adding_URLs_dynamically">URLs dynamisch hinzufügen</h3>
 
-<p>Sie können URLs dynamisch hinzufügen, indem Sie Javascript und die Brightcove Player-API verwenden:</p>
+<p>Sie können URLs mithilfe von Javascript und der Brightcove Player-API dynamisch hinzufügen:</p>
 
 <pre class="line-numbers">
       <code class="language-html" translate="No">&lt;!DOCTYPE html&gt;
@@ -1050,191 +622,39 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </section>
 
 <section class="bcls-section">
-<h2 id="Ad_configuration_variables">Variablen für die Anzeigen</h2>
+<h2 id="Ad_configuration_variables">Anzeigenkonfigurationsvariablen</h2>
 
-<p>Anzeigenkonfigurationsvariablen, auch bekannt als Beacons, können in Anfragen zur Verwaltung von Anzeigenkonfigurationen verwendet werden. Einzelheiten finden Sie in der <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html#Beacons">Live-API: Cue-Points und Ad Beacons mit SSAI-Dokument</a> .</p>
+<p>Anzeigenkonfigurationsvariablen, auch als Beacons bezeichnet, können in Anforderungen zum Verwalten von Anzeigenkonfigurationen verwendet werden. Einzelheiten finden Sie in der <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html#Beacons">Live-API: Cue Points und Ad Beacons mit SSAI</a> Dokument.</p>
 </section>
 
 <section class="bcls-section">
-<h2 id="Using_manual_cue_points">Verwenden von manuellen Cue-Po</h2>
+<h2 id="Using_manual_cue_points">Verwenden manueller Cue-Points</h2>
 
-<p>Werte für bestimmte Werbeblöcke können mit der manuellen Cue-Point-Einfügeanforderung gesendet werden. Einzelheiten finden Sie in der <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html#Manual_cue_point_insertion">Live-API: Dokument zu Cue-Points und Ad Beacons</a> .</p>
+<p>Werte für bestimmte Werbeunterbrechungen können mit der manuellen Anforderung zum Einfügen von Cue-Points gesendet werden. Einzelheiten finden Sie in der <a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html#Manual_cue_point_insertion">Live-API: Cue Points und Ad Beacons</a> Dokument.</p>
 </section>
 
 <section class="bcls-section">
 <h2 id="Known_issues">Bekannte Probleme</h2>
 
 <ul>
-	<li>SSAI erfordert, dass das Live-Streaming-Video eine Audiospur hat.</li>
-	<li>Wenn die zurückgegebene VAST dieselbe Anzeigenkennung hat, fordert der Server den Anzeigeninhalt nicht an, obwohl die Anzeigen-URL dynamische Variablen verwendet, um sie zu einer eindeutigen URL zu machen. Dies gilt <strong>nicht</strong> , wenn Sie DFP für Werbeanzeigen verwenden.</li>
-	<li>Mit DFP, obwohl Sie dieselbe Anzeigenkennung verwenden können, muss es immer noch eine andere kreative ID geben - mit anderen Worten, Sie können die MediaFile nicht einfach austauschen.</li>
+	<li>SSAI erfordert, dass das Live-Streaming-Video über eine Audiospur verfügt.</li>
+	<li>Wenn der zurückgegebene VAST dieselbe Anzeigen-ID hat, fordert der Server den Anzeigeninhalt nicht an, obwohl die Anzeigen-URL dynamische Variablen verwendet, um eine eindeutige URL zu erstellen. Das macht <strong>nicht</strong> Bewerben Sie sich, wenn Sie DFP für Anzeigen verwenden.</li>
+	<li>Mit DFP können Sie zwar dieselbe Anzeigen-ID verwenden, es muss jedoch eine andere Creative-ID vorhanden sein. Mit anderen Worten, Sie können die MediaFile nicht einfach austauschen.</li>
 	<li>
-	<p>Wenn eine Werbeunterbrechung eine Dauer hat, die unter der maximalen Dauer der Anzeigen-URL (min_ad_duration=0&amp;max_ad_duration=30000) liegt, wird die Anzeige nicht abgespielt, wenn die Anzeige länger als die Werbeunterbrechung zurückgegeben wird.</p>
+	<p>Wenn eine Anzeigenunterbrechung eine Dauer hat, die kürzer als die MAX-Dauer der Anzeigen-URL ist (min_ad_duration = 0 &amp; max_ad_duration = 30000), wird die Anzeige nicht abgespielt, wenn die Anzeige länger als die Anzeigenunterbrechung zurückgegeben wird.</p>
 	</li>
 	<li>
-	<p>VPAID- oder anklickbare Anzeigen werden nicht unterstützt <span translate="No">Brightcove Live SSAI</span>.</p>
+	<p>VPAID oder anklickbare Anzeigen werden nicht unterstützt für <span translate="No">Brightcove Live-SSAI</span>.</p>
 	</li>
 	<li>
-	<p>Wenn ein Werbeblock die verbleibende Zeit kürzer als die Segmentsekunden des Streams hat und ein Slate angezeigt wird, wird der Slate für seine Segmentdauer angezeigt und der tatsächliche Werbeblock ist länger als erwartet.</p>
+	<p>Wenn für eine Werbeunterbrechung die verbleibende Zeit kürzer als die Segmentsekunden des Streams ist und eine Tabelle angezeigt wird, wird die Liste für ihre Segmentdauer angezeigt und die tatsächliche Werbeunterbrechung ist länger als erwartet.</p>
+   <li>
+     <p>Dies kann dazu führen, dass eine der folgenden Anzeigenunterbrechungen um die Latenzzeit verkürzt wird, um zu versuchen, die Sitzung wieder auf den Live-Rand zu bringen.</p></li>
 	</li>
-	<li>Wenn die Anzeige zum ersten Mal von unserem System gesehen wird, wird sie erst wiedergegeben, wenn sie transcodiert und bereitsbereit ist.</li>
+	<li>Wenn die Anzeige zum ersten Mal von unserem System gesehen wird, wird sie erst abgespielt, wenn sie transkodiert und zur Auslieferung bereit ist.</li>
 	<li>VMAP for Live SSAI wird derzeit nicht unterstützt.</li>
 </ul>
 </section>
-
+{% endraw %}
 
 </article>
-<!-- complete bootstrap layout -->
-    </div>
-    <div class="col-sm-2 right-side-bar">
-      
-      <nav class="right-side-nav" id="right_side_nav">
-        <h6 class="toc">Inhalt der Seite</h6>
-        <ul id="in_page_nav" class="list-none"></ul>
-      </nav>
-      
-    </div>
-  </div>
-</div>
-
-<hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
-    <div class="region region-footer-top-center col-md-12">
-      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
-
-        <h2>Brightcove Support-Service</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://status.brightcove.com">Systemstatus</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontakt mit dem Support</a>
-          </li>
-          <li>
-            <a href="https://support.brightcove.com/">DOKUMENTATION</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
-
-        <h2>Schulungen</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">Online-Kurse</a>
-          </li>
-          <li>
-            <a href="https://studio.support.brightcove.com/training/register-training.html">Für einen Kurs anmelden</a>
-          </li>
-          <li>
-            <a href="https://university.brightcove.com/">Brightcove Universität</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
-
-        <h2>Brightcove</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://www.brightcove.com">brightcove.com</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontaktiere uns</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="region region-footer-bottom-center col-md-12">
-      <div class="bcls-copyright footer-menu">
-        <table>
-          <tr>
-            <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. Alle Rechte vorbehalten.</div>
-            </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
-            <td>
-              <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-      
-  var searchBox = sajari.init({
-    mode: "search-box",
-    project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
-    instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
-    maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
-  });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
-  
-
-</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
-  <script src="/assets/js/sites_nav.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
-  <script src="/assets/js/feedback.js"></script>
-  
-  <script src="/assets/js/sajari-search-foot.js"></script>
-  
-  <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
-    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
-      background-color: lightblue;
-    }
-    div.sj-tabs__tab {
-      margin-top: 3rem;
-      margin-left: .3rem;
-      border-top-left-radius: .4rem;
-      border-top-right-radius: .4rem;
-      background-color:#e8e8e8;
-    }
-
-    div.sj-tabs__tab.sj-tabs__tab--selected {
-      border-bottom-color: crimson;
-      background-color: #f8f8f8;
-    }
-
-    p.sj-results__result__description.css-p9jvyt {
-      font-size: 1rem;
-    }
-
-    .sj-result__text.css-31l7gp h3 {
-      color: navy;
-      font-size: 1.4rem;
-    }
-    </style>
-
-</body>
-
-</html>

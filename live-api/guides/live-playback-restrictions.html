@@ -1,0 +1,239 @@
+---
+title: Wiedergabebeschränkungen mit Live-Streams 
+description: In diesem Thema erfahren Sie, wie Sie Wiedergabebeschränkungen bei Livestreams verwenden.
+parent: Guides 
+grandparent: Live API
+---
+ <h1>Diese Seite ist umgezogen - Sie werden weitergeleitet zum <a href="https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html">neuen Ort</a> in 3 Sekunden. Bitte aktualisiere deine Lesezeichen!</h1>
+<script type="text/javascript">
+var t = setTimeout (Funktion () { window.location.href = 'https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html'; }, 3000);
+</script>
+<h1>{{ page.title }}</h1>
+<article class="bcls-article">
+  <summary>{{ page.description }}</summary> 
+  <!-- <br>
+  <aside class="bcls-aside bcls-aside--tip">This feature is available for a specific set of customers with access to the Limited Availability phase of Brightcove Playback Restrictions.</aside> -->
+
+  <section class="bcls-section">
+    <h2 id="Introduction">Einführung</h2>
+    <p>Wiedergabebeschränkungen können für einen Live-Job aktiviert werden, um den von DRM bereitgestellten Schutz zu erweitern, einschließlich:</p>
+    <ul>
+      <li>Beschränkung der Wiedergabe auf einen bestimmten Benutzeragenten</li>
+      <li>Begrenzung der Anzahl der IP-Adressen</li>
+      <li>Begrenzung der Gesamtzahl der Benutzer</li>
+    </ul>
+
+    <p>Um umfassende Einschränkungen zu erhalten, können Sie diese mithilfe der Wiedergaberechte-API konfigurieren. In diesem Fall würden Sie die zuordnen <code translate="No">playback_rights_id</code> mit einem Video. Einzelheiten finden Sie in der <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html#Asset_level_restrictions">Einschränkungen auf Asset-Ebene</a> Abschnitt der Übersicht: Brightcove-Wiedergabebeschränkungen Dokument.</p>
+
+    <p>Für Laufzeitbeschränkungen können Sie die JSON Web Token (JWT) -Ansprüche angeben. Diese Einschränkungen umfassen Stream-Parallelität und Gerätebeschränkungen. Einzelheiten finden Sie in der <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html#Runtime_restrictions">Laufzeitbeschränkungen</a> Abschnitt der Übersicht: Brightcove-Wiedergabebeschränkungen Dokument.</p>
+
+    <p>Mit Live-Streams können Sie auch die DRM-CRT für einen Benutzer überschreiben. Einzelheiten finden Sie in der <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html#License_Keys_Protection">Schutz der Lizenzschlüssel</a> Abschnitt der Übersicht: Brightcove-Wiedergabebeschränkungen Dokument.</p>
+
+    <p>Unabhängig davon, welchen Modus Sie auswählen, muss die Jobanforderung a enthalten <code translate="No">videocloud.video</code> Attribut, damit ein Video Cloud-Video erstellt und mit dem Live-Job verknüpft wird. Das <code translate="No">playback_rights_id</code> Das Attribut kann im Video Cloud-Video aktualisiert werden, um die Wiedergabebeschränkungen über das zu ändern <a href="https://apis.support.brightcove.com/cms/references/reference.html#operation/UpdateVideo">CMS API</a>.</p>
+    <p>Sie müssen auch <a href="https://general.support.brightcove.com/developer/create-json-web-token.html">Erstellen Sie ein JSON-Web-Token (JWT).</a> mit den entsprechenden Ansprüchen. Das JWT muss in allen Lizenzserveranforderungen enthalten sein. Wenn Sie Ihren eigenen Player implementieren, müssen Sie diesen Wert entweder in a übergeben <code translate="No">BCOV-Auth</code> Header oder <code translate="No">bcov_auth</code> Abfrageparameter (zusätzlich zum DRM-Token).</p>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Create_Live_job">Erstellen Sie einen Live-Job</h2>
+    <p>Sie können Live-Jobs erstellen, die Wiedergabebeschränkungen verwenden. Einzelheiten zum Erstellen von Live-Streams finden Sie in der <a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Erstellen Sie einen Live-Stream mit der Brightcove Live-API</a> Dokument.</p>
+
+    <h3>Neue Felder</h3>
+    <p>Die folgenden neuen Felder werden verwendet, um einem Live-Job Wiedergabeeinschränkungen hinzuzufügen.</p>
+    <ul>
+      <li>
+        <h4><code translate="No">drm</code> Objekt:</h4>
+        <dl>
+          <dt><code translate="No">require_playback_token</code>(boolescher Wert)</dt>
+          <dd>Playback Auth JWT ist erforderlich, wenn Sie eine Lizenz anfordern.</dd>
+          <dt><code translate="No">check_playback_rights</code>(boolescher Wert)</dt>
+          <dd>Playback Auth JWT ist erforderlich, wenn Sie eine Lizenz anfordern. Verwendet die mit Video oder JWT verknüpfte Wiedergaberechten-ID, um Einschränkungen durchzusetzen.</dd>
+        </dl>
+      </li>
+      <li>
+        <h4><code translate="No">videocloud.video</code> Objekt:</h4>
+        <aside class="bcls-aside bcls-aside--information">Beachten Sie, dass dieses Feld mithilfe der CMS-API zum Video hinzugefügt werden muss <em>nach</em> Sie erstellen den Live-Job, da er beim Erstellen des Videos nicht hinzugefügt werden kann.</aside>
+        <dl>
+          <dt><code translate="No">playback_rights_id</code>(String)</dt>
+          <dd>Verknüpft die angegebenen Wiedergabeeinschränkungen mit einem Video.</dd>
+        </dl>
+      </li> 
+    </ul>
+
+    <h3 id="Sample_request_response">Beispielanforderung und Antwort</h3>
+    <p>Unten finden Sie ein Beispiel für einen Live-API-Anforderungshauptteil zum Erstellen eines Live-Jobs mit Wiedergabeeinschränkungen.</p>
+    <aside class="bcls-aside bcls-aside--information">Es gibt auch eine CMS-API-Anfrage zum Aktualisieren des für den Live-Job erstellten Videos mit dem <code translate="No">playback_rights_id</code>. (Dieses Feld kann nur mit einer <strong></strong> Update-Videoanforderung hinzugefügt werden und muss daher hinzugefügt werden, nachdem die Live-API-Anfrage das Video erstellt hat.)</aside>
+
+    <h3>Beispielanforderungshauptteil</h3>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+  &quot;live_stream&quot;: true,
+  &quot;region&quot;: &quot;us-west-2&quot;,
+  &quot;reconnect_time&quot;: 300,
+  &quot;ad_insertion&quot;: false,
+  &quot;static&quot;: false,
+  &quot;drm&quot;: {
+    &quot;modes&quot;:[&quot;all&quot;],
+    <span class="bcls-highlignt">&quot;require_playback_token&quot;: true,</span>
+    <span class="bcls-highlignt">&quot;check_playback_rights&quot;: true</span>
+  },
+  &quot;live_dvr_sliding_window_duration&quot;: 300,
+  &quot;videocloud&quot;: {
+    &quot;live_to_vod&quot;: true,
+    &quot;video&quot;: {
+        &quot;name&quot;: &quot;Test EPA&quot;,
+        &quot;description&quot;: &quot;&quot;,
+        &quot;long_description&quot;: &quot;&quot;,
+        &quot;tags&quot;: [],
+        &quot;reference_id&quot;: &quot;&quot;,
+        &quot;link&quot;: {
+            &quot;url&quot;: &quot;&quot;,
+            &quot;text&quot;: &quot;&quot;
+        },
+        &quot;custom_fields&quot;: {}
+      }
+  },  
+  &quot;outputs&quot;: [{
+      &quot;label&quot;: &quot;hls720p&quot;,
+      &quot;live_stream&quot;: true,
+      &quot;height&quot;: 720,
+      &quot;video_bitrate&quot;: 2000,
+      &quot;segment_seconds&quot;: 6,
+      &quot;keyframe_interval&quot;: 60
+  },
+  {
+      &quot;label&quot;: &quot;hls480p&quot;,
+      &quot;live_stream&quot;: true,
+      &quot;height&quot;: 480,
+      &quot;video_bitrate&quot;: 1000,
+      &quot;segment_seconds&quot;: 6,
+      &quot;keyframe_interval&quot;: 60
+  }
+}</code></pre>
+
+    <details>
+      <summary><h2>Beispielantwort</h2></summary>
+      <p>Die hervorgehobene Zeile enthält das Video <code translate="No">id</code> dass Sie die hinzufügen müssen <code translate="No">playback_rights_id</code></p>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+  &quot;id&quot;: &quot;f47487cf81f84764b280fbfaefed524a&quot;,
+  &quot;outputs&quot;: [
+      {
+          &quot;id&quot;: &quot;0-f47487cf81f84764b280fbfaefed524a&quot;,
+          &quot;label&quot;: &quot;hls720p&quot;
+      },
+      {
+          &quot;id&quot;: &quot;1-f47487cf81f84764b280fbfaefed524a&quot;,
+          &quot;label&quot;: &quot;hls480p&quot;
+      },
+      {
+          &quot;id&quot;: &quot;2-f47487cf81f84764b280fbfaefed524a&quot;,
+          &quot;playlist_type&quot;: &quot;defaultS3&quot;,
+          &quot;type&quot;: &quot;playlist&quot;,
+          &quot;drm&quot;: {
+              &quot;token&quot;: &quot;eyJh...axy8&quot;,
+              &quot;modes&quot;: [
+                  {
+                      &quot;type&quot;: &quot;fairplay&quot;,
+                      &quot;key_system&quot;: &quot;com.apple.fps.1_0&quot;,
+                      &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/fp?token=eyJh...axy8&quot;,
+                      &quot;certificate_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/cert/fp?token=eyJh...axy8&quot;,
+                      &quot;filename&quot;: &quot;playlist_fp.m3u8&quot;,
+                      &quot;dvr_filename&quot;: &quot;playlist_fp_dvr.m3u8&quot;,
+                      &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_fp.m3u8&quot;,
+                      &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_fp_dvr.m3u8&quot;,
+                      &quot;playback_added_cdns&quot;: []
+                  },
+                  {
+                      &quot;type&quot;: &quot;widevine&quot;,
+                      &quot;key_system&quot;: &quot;com.widevine.alpha&quot;,
+                      &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/wv?token=eyJh...axy8&quot;,
+                      &quot;filename&quot;: &quot;playlist_wv.m3u8&quot;,
+                      &quot;dvr_filename&quot;: &quot;playlist_wv_dvr.m3u8&quot;,
+                      &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_wv.m3u8&quot;,
+                      &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_wv_dvr.m3u8&quot;,
+                      &quot;playback_added_cdns&quot;: []
+                  },
+                  {
+                      &quot;type&quot;: &quot;playready&quot;,
+                      &quot;key_system&quot;: &quot;com.microsoft.playready&quot;,
+                      &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/pr?token=eyJh...axy8&quot;,
+                      &quot;filename&quot;: &quot;playlist.mpd&quot;,
+                      &quot;dvr_filename&quot;: &quot;playlist_dvr.mpd&quot;,
+                      &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist.mpd&quot;,
+                      &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_dvr.mpd&quot;,
+                      &quot;playback_added_cdns&quot;: []
+                  }
+              ],
+              &quot;token_expires_in&quot;: 43200,
+              &quot;require_playback_token&quot;: true,
+              &quot;check_playback_rights&quot;: true
+          }
+      }
+  ],
+  &quot;stream_url&quot;: &quot;rtmp://ep8-usw2.a-live.io:1935/f47487cf81f84764b280fbfaefed524a&quot;,
+  &quot;stream_name&quot;: &quot;alive&quot;,
+  &quot;static&quot;: false,
+  &quot;event_length&quot;: 93600,
+  <span class="bcls-highlight">&quot;job_videocloud_asset_id&quot;: &quot;70701312966202&quot;,</span>
+  &quot;encryption&quot;: {},
+  &quot;drm_enabled&quot;: true,
+  &quot;drm&quot;: {
+    &quot;token&quot;: &quot;eyJh...axy8&quot;,
+    &quot;modes&quot;: [
+      {
+        &quot;type&quot;: &quot;fairplay&quot;,
+        &quot;key_system&quot;: &quot;com.apple.fps.1_0&quot;,
+        &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/fp?token=eyJhb...axy8&quot;,
+        &quot;certificate_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/cert/fp?token=eyJhb...axy8&quot;,
+        &quot;filename&quot;: &quot;playlist_fp.m3u8&quot;,
+        &quot;dvr_filename&quot;: &quot;playlist_fp_dvr.m3u8&quot;,
+        &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_fp.m3u8&quot;,
+        &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_fp_dvr.m3u8&quot;,
+        &quot;playback_added_cdns&quot;: []
+      },
+      {
+        &quot;type&quot;: &quot;widevine&quot;,
+        &quot;key_system&quot;: &quot;com.widevine.alpha&quot;,
+        &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/wv?token=eyJhb...axy8&quot;,
+        &quot;filename&quot;: &quot;playlist_wv.m3u8&quot;,
+        &quot;dvr_filename&quot;: &quot;playlist_wv_dvr.m3u8&quot;,
+        &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_wv.m3u8&quot;,
+        &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_wv_dvr.m3u8&quot;,
+        &quot;playback_added_cdns&quot;: []
+      },
+      {
+        &quot;type&quot;: &quot;playready&quot;,
+        &quot;key_system&quot;: &quot;com.microsoft.playready&quot;,
+        &quot;license_url&quot;: &quot;https://license-proxy-qa.alive.us-west-2.qa.deploys.brightcove.com/lic/pr?token=eyJh...axy8&quot;,
+        &quot;filename&quot;: &quot;playlist.mpd&quot;,
+        &quot;dvr_filename&quot;: &quot;playlist_dvr.mpd&quot;,
+        &quot;playback_url&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist.mpd&quot;,
+        &quot;playback_url_dvr&quot;: &quot;https://playback-qa.a-live.io/f47487cf81f84764b280fbfaefed524a/us-west-2/NA/playlist_dvr.mpd&quot;,
+        &quot;playback_added_cdns&quot;: []
+      }
+    ],
+    &quot;token_expires_in&quot;: 43200,
+    &quot;require_playback_token&quot;: true,
+    &quot;check_playback_rights&quot;: true
+  }
+}</code></pre>
+    </details>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Add_restrictions_to_the_live_job">Fügen Sie dem Live-Job Einschränkungen hinzu</h2>
+    <p>Nachdem Sie den Live-Stream erstellt haben, können Sie dem für den Live-Job erstellten Video mithilfe von Wiedergabeeinschränkungen hinzufügen <a href="https://apis.support.brightcove.com/cms/getting-started/overview-cms-api.html">CMS API</a>.</p>
+    
+    <h3>CMS-API-Anfrage</h3>
+    <p>Senden Sie eine, um dem Video die ID für die Wiedergaberechte hinzuzufügen <a href="https://apis.support.brightcove.com/cms/references/reference.html#operation/UpdateVideo">Video aktualisieren</a> Anforderung an die CMS-API mit dem folgenden Anforderungshauptteil:</p>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"playback_rights_id": "<span class="bcls-input">your playback_rights_id</span>"
+}</code></pre>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Deliver_the_stream">Liefern Sie den Stream</h2>
+    <p>Wenn Sie den Brightcove-Webplayer oder eines der nativen Brightcove-Player-SDKs zur Bereitstellung des Live-Streams verwenden, ist die Implementierung für Wiedergabeeinschränkungen dieselbe wie für VOD. Siehe folgendes:</p>
+    <ul>
+      <li><a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/implementing-playback-rights.html#Configure_your_player">Konfigurieren Sie Ihren Player</a> Abschnitt des Dokuments zum Implementieren von Wiedergaberechten</li>
+    </ul>
+  </section>
+</article>

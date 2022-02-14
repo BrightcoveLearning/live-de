@@ -1,769 +1,494 @@
-﻿<!doctype html>
-<html lang="de">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  
-  <title>Richtlinien und Best Practices für das Live-Modul</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">  
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
-  <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
-  <script src="/assets/js/sajari-head.js"></script>
-</head>
-
-<body class="body">
-
-<header>
-  <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Live_Logo.svg" alt="Produkt-Logo" style="max-height: 100px;max-width: 232px;"/></a>
-<!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Sprache wählen</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
-
-<script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
-</script>
-
-    
-
-
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="Support"/> Kontaktieren Sie Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="Systemstatus"/> Systemstatus</a></span> <br/>
-    
-  </div>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">Nach Hause</a></li>
-      
-      
-      
-      <li class="breadcrumb-item"><a href="/get-started/">Erste Schritte</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">Richtlinien und Best Practices für das Live-Modul</li>
-    </ol>
-  </nav>
-</header>
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Weitere Brightcove Docs</option>
-          
-            
-              <option value="https://support.brightcove.com">Dokumentation Home</option>
-            
-          
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Publikum</option>
-            
-          
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove Leuchtfeuer</option>
-            
-          
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove Kampagne</option>
-            
-          
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
-          
-            
-              <option value="https://live.support.brightcove.com">Brightcove Live</option>
-            
-          
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-            
-          
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
-          
-            
-              <option value="https://social.support.brightcove.com">Brightcove Social</option>
-            
-          
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
-          
-            
-              <option value="https://player.support.brightcove.com">Brightcove Spieler-Entwicklung</option>
-            
-          
-            
-              <option value="https://apis.support.brightcove.com">APIs für Video Cloud-Plattform</option>
-            
-          
-            
-              <option value="https://sdks.support.brightcove.com">Videocloud-Geräte-SDKs</option>
-            
-          
-            
-              <option value="https://integrations.support.brightcove.com">Integrationen und CMS-Konnektoren</option>
-            
-          
-            
-              <option value="https://general.support.brightcove.com">Video Cloud — Allgemeine Informationen</option>
-            
-          
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
-          
-        </select>
-
-        <nav class="sidenav" id="side_nav">
-          
-            
-            <h5><a href="/index.html">Nach Hause</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/get-started/index.html">Erste Schritte <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcove Live-Schulungsvideos</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/delivering-live-streams.html">Bereitstellen von Livestreams</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">Richtlinien und Best Practices für Live-Module</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Schritt für Schritt: Verwenden des Live-Moduls mit OSP</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Schritt für Schritt: Verwenden des Live-Moduls mit Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/index.html">Allgemeine Informationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/live-drm.html">Live-DRM</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-platforms-comparison-matrix.html">Vergleichsmatrix für Live-Plattformen</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-video-glossary.html">Live-Video-Glossar</a></li>
-                  
-                
-                  
-                    <li><a href="/general/reducing-latency-live-streams.html">Reduzierung der Latenz für Live-Streams</a></li>
-                  
-                
-                  
-                    <li><a href="/general/supported-encoders-live-events.html">Unterstützte Encoder für Live-Events</a></li>
-                  
-                
-                  
-                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Verwenden von Akamai Stream Packaging und Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-module/index.html">Verwenden des Live-Moduls <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">Clientseitige Preroll-Anzeigen mit Live SSAI</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">Erstellen und Verwalten von Live-Events</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-video-clip-using-live-module.html">Erstellen eines Videoclips</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">Gastgeber-Avaya-Konferenz auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Hosten Sie Cisco Webex zu Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">Host Zoom auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">Veranstalten Sie ein INXPO-Event auf Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">Implementierung von serverseitigen Anzeigen</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/live-redundancy.html">Live-Redundanz</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-facebook.html">Veröffentlichen eines Live-Events auf Facebook</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-youtube.html">Veröffentlichen einer Live-Veranstaltung auf YouTube</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/reviewing-live-analytics.html">Überprüfung von Live-Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">Verwenden von Live-RTMP-Ausgaben</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-api/index.html">Arbeiten mit der Live-API <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/getting-started/index.html">Live-API: Anfangen <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">Übersicht: Live-AP</a></li>
-                        
-                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Erstellen eines Live-Streams mit der API</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/code-samples/index.html">Live-API: Codebeispiele <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">Erstellen Sie einen Live-Job</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">Erstellen Sie einen Live-Job für MPEG2-TS-Eingabe</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">Verwenden von RTMP-Ausgaben für Live-Events</a></li>
-                        
-                        <li><a href="/live-api/code-samples/simulated-live.html">Simuliertes Live-Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/references/index.html">Live-API: Verweise <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/references/live-api-error-messages.html">Fehler-Meldungen</a></li>
-                        
-                        <li><a href="/live-api/references/live-api-release-notes.html">Anmerkungen zur</a></li>
-                        
-                        <li><a href="/live-api/references/reference.html">Live-API-Referenz</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/ssai/index.html">Live-API: SSAI <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Cue-Points und Ad Beacons mit SSAI</a></li>
-                        
-                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">Serverseitige Anzeigeneinfügung (SSAI)</a></li>
-                        
-                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">Übersicht: Spieler-Verbesserungen für Live SSAI</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/guides/index.html">Live-API: Anleitungen <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">Best Practices von Brightcove Live</a></li>
-                        
-                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcove Live-Programm Ad Metadaten-API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">Erstellen eines rahmengenauen Clips</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">Erstellen von VOD-Clips</a></li>
-                        
-                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">Eine Liste von Live- oder VOD-Jobs abrufen</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">Einfügen von zeitgesteuerten ID3-Metad</a></li>
-                        
-                        <li><a href="/live-api/guides/live-drm-live-api.html">Live-DRM über die Live-API</a></li>
-                        
-                        <li><a href="/live-api/guides/managing-credentials-live-api.html">Verwalten von Anmeldeinformationen für die Live-API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-notifications.html">Benachrichtigungen</a></li>
-                        
-                        <li><a href="/general/reducing-latency-live-streams.html">Reduzierung der Latenz für Live-Streams</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP-Ausgänge</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-static-entry-points.html">Statische Eintritt</a></li>
-                        
-                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">Signierte URLs und Token Auth mit einem Live Stream</a></li>
-                        
-                        <li><a href="/live-api/guides/using-live-redundancy.html">Verwenden von Live-Redundanz</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-vod-live-event.html">VOD von Live-Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/admin/index.html">Konten verwalten <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">Erstellen von benutzerdefinierten Live-Ingest-Profilen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">Felder für benutzerdefinierte Live-Aufgaufzeichnungsprofile</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-live-settings.html">Verwalten von Live-Einstellungen</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-api-authentication-credentials.html">Verwalten von Anmeldedaten für API-</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/standard-live-ingest-profiles.html">Standard-Live-Ingest-Profile</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/release-notes/index.html">Versionsinformationen <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/release-notes/live-api-release-notes.html">Live-Release-Hinweise</a></li>
-                  
-                
-                  
-                    <li><a href="/release-notes/known-issues.html">Bekannte Probleme</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html">unterstützung <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Systemstatus von Brightcove“</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">Kontakt mit dem Vertrieb</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
-                  
-                
-              </ul>
-            
-          
-      </nav>
-    </div>
-    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
-  <!-- bootstrap layout -->
-
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Menü „Navigation"/></p>
-
-<!-- search bar -->
-<div id="nav-search-box" style="margin-top: 1rem;"></div>
-<!-- in-page navigation for narrow screens -->
-<details class="centered-inpage-nav" id="centered_inpage_nav">
-  <summary><h6 class="toc">Inhalt der Seite</h6></summary>
-  <nav id="centered_toc"></nav>
-  <ul id="centered_in_page_toc" class="list-none"></ul>
-</details>
-<!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="in neuem Tab öffnen" style="margin-top:4em;width: 1.5em;"/></a>
-
-
-
-  
-    
-
-
+---
+title: 'Brightcove Live: Best Practices'
+description: 'Mit Video Cloud Live können Sie ganz einfach Live-Events einrichten und Streams mit mehreren Bitraten für das Internet, iOS und Android-Geräte bereitstellen. In diesem Thema werden eine Reihe von Best Practices und Empfehlungen beschrieben, um ein qualitativ hochwertiges, stabiles Live-Streaming-Erlebnis zu gewährleisten.'
+parent: Getting Started
+---
+ <h1>{{ page.title }}</h1>
 <article class="bcls-article">
-  <h1>Richtlinien und Best Practices für das Live-Modul</h1>
-  <summary>Mit Video Cloud Live können Sie leicht Liveveranstaltungen einrichten und Streams mit variablen Bitraten über das Web sowie auf iOS- und Android-Endgeräte übertragen. Hier finden Sie optimale Vorgehensweisen und Empfehlungen, die Ihnen dabei helfen, eine hohe Qualität und stabiles Livestreaming zu erzielen.</summary>
+  <summary>{{ page.description }}</summary>
   <section class="bcls-section">
-    <aside class="bcls-aside bcls-aside--information">Hinweis: Unterstützung für Live-Streaming steht nur für Video Cloud Pro- und Enterprise-Publisher zur Verfügung.</aside>
-    <p>Wenn Sie schnell mit der Ausstrahlung eines Live-Events beginnen möchten, schauen Sie sich Folgendes an:</p>
-    <ul>
-      <li> <a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Schritt für Schritt: Verwenden des Live-Moduls mit Telestream Wirecast</a></li>
-      <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Schritt für Schritt: Verwenden des Live-Moduls mit Open Broadcaster Software (OBS)</a></li>
-    </ul>
-    Eine Liste aller in Brightcove verfügbaren Optionen für die Bereitstellung von Live-Streaming-Videos finden Sie unter <a href="/get-started/delivering-live-streams.html">Delivering Live Streams.</a> </section>
-  <section class="bcls-section">
-    <h2 id="encoders">Zertifizierte Codierer</h2>
-    <p>Eine Liste der unterstützten Encoder finden Sie unter <a href="/general/supported-encoders-live-events.html">Unterstützte Encoder for Live Events</a>. Andere Hardware- und Softwarecodiertools funktionieren womöglich mit dem Live-Modul, ihre Verwendung wird jedoch nicht unterstützt. Bei Fragen zu einem bestimmten Tool wenden Sie sich bitte an den <a href="https://supportportal.brightcove.com/create">Brightcove-Support</a>.</p>
+    <h2 id="Overview">Überblick</h2>
+
+    <p>Brightcove Live bietet einen robusten Service zum Erstellen von Live-Streaming-Events oder Live-Streams rund um die Uhr. In diesem Handbuch werden bewährte Methoden zur Optimierung Ihrer Live-Streams beschrieben</p>
   </section>
+
   <section class="bcls-section">
-    <h2 id="inputstream">Richtlinien für den eingehenden Stream</h2>
-    <p>Das beste Übertragungsergebnis für den Benutzer kann nur mit einem stabilen eingehenden Stream in hoher Qualität erzielt werden. Ein guter eingehender Stream bietet die beste Videoqualität bei der höchsten konsistent verfügbaren Bandbreite eines Standorts.</p>
-    <h3>Eingabebeschränkungen</h3>
-    <p>Um die höchste Qualität und das konsistenteste Streaming-Erlebnis zu gewährleisten, beschränkt Brightcove Live die Einstellungen für den Eingabestream auf:</p>
-    <ul>
-      <li>Maximal 1920 x 1080</li>
-      <li>Maximal 30 fps, was typisch ist. Brightcove unterstützt bis zu 60 fps, aber Sie müssen sich an den <a href="https://supportportal.brightcove.com/create">Brightcove Support wenden</a> , um das Limit erhöhen zu können. Bei Verwendung von 60 fps empfiehlt Brightcove, die Bitrate signifikant zu erhöhen und eine konstante Bildrate zu verwenden.</li>
-      <li>Weniger als 10 MBit/s</li>
-      <li>Konstante Bitrate (CBR) reduziert die Wahrscheinlichkeit von Problemen erheblich</li>
-      <li>Abtastrate für Audiogeräte: 44,1 kHz und 48 kHz sind die empfohlenen Sample-Audioraten</li>
-      <li>Keyframe-Rate oder GOP (Bildgruppe) ausgerichtet:
-        <ol type="a">
-          <li>Ein <strong>Keyframe</strong> sollte immer alle 2 Sekunden <strong>für Ein- und Ausgänge</strong>erfolgen. Das bedeutet, dass alle zwei Sekunden des Streams selbst ein Keyframe vom Encoder an Brightcove gesendet wird. Dieser Prozess kann auf verschiedene Arten definiert werden, aber <strong>Keyframe-Rate</strong> ist am häufigsten. </li>
-          <li>Es kann auf verschiedene Arten von verschiedenen Encodern berechnet werden. Beispiel:
-            <ul>
-              <li>Wirecast verwendet die Anzahl der verpassenden Frames, sodass die Einstellung für ein 30fps-Video 60 beträgt.</li>
-              <li>Elementarzähler brauchen Sekunden, so dass die richtige Einstellung „2“ ist.</li>
-              <li>60 FPS-Video ändert sich nur, wenn diese Einstellung von den Frames gezählt wird. In diesem Fall würden alle 120 Bilder 2 Sekunden betragen.</li>
-
-            </ul>
-
-
-          </li>
-
-
-
-        </ol>
-        <li>Wenn es eine Option für <strong>Keyframe Aligned</strong>, <strong>Sync GOP</strong>, <strong>Align Keyframes</strong> oder etwas in diesen Zeilen gibt, stellen Sie sicher, dass Keyframes ausgerichtet sind. Wenn Keyframes nicht ausgerichtet sind, führt dies zu Synchronisierungsproblemen bei der HLS-Segmentierung. </li>
-
-
-
-
-      </li>
-
-
-
-
-
-
-
-    </ul>
-    <h3>Testen der Bandbreite</h3>
-    <p>Der erste Schritt zum Festlegen der geeigneten Einstellungen für den eingehenden Stream ist das Bestimmen der vor Ort verfügbaren Bandbreite. Hierfür sind einige Tools verfügbar:</p>
-    <ul>
-      <li>SpeedOf.Me (<a href="https://speedof.me">http://speedof.me</a>) – legen Sie zuerst die für HTTP-Verbindungen verfügbare Gesamtbandbreite fest. Da jedoch das Eingangssignal nicht über HTTP, sondern über RTMP an das Live-Modul gestreamt wird, wird die tatsächlich für RTMP-Verbindungen verfügbare Bandbreite deutlich niedriger sein.</li>
-      <li>Speedtest (<a href="http://www.speedtest.net">http://www.speedtest.net</a>) - Online-Tool zur Bestimmung der aktuellen Upload- und Download-Geschwindigkeit.</li>
-    </ul>
-    <h3>Input-Bandbreite</h3>
-    <p>Das beste Übertragungsergebnis für den Benutzer kann nur mit einem stabilen eingehenden Stream in hoher Qualität erzielt werden. Ein guter eingehender Stream bietet die beste Videoqualität bei der höchsten konsistent verfügbaren Bandbreite eines Standorts.</p>
-    <ul>
-      <li>Minimale Eingabebandbreite: 2,5 Mbit/s</li>
-      <li>Maximale Input-Bandbreite: 10 Mbit/s</li>
-    </ul>
-    <aside class="bcls-aside bcls-aside--information">Hinweis: Sie erzielen die höchste Qualität, wenn Sie Ihre Ausgabewiedergabeversionen an die Qualität des Codiererstreams anpassen.</aside>
-    <h3>Bestimmen der Codiererfähigkeiten</h3>
-    <p>Sie sollten sich über die Fähigkeiten der Software und Hardware im Klaren sein, die zum Codieren des Livestreams verwendet wird und mit der der Livestream an das Live-Modul gesendet wird. Es genügt nicht, wenn nur die Bitrate hoch genug ist und ein eingehender 1080p-Stream in hoher Qualität gesendet wird, auch die Hardware muss schneller als in Echtzeit codieren können. Einige Codiertools zeigen Informationen über die CPU-Gesamtauslastung und verwendete Bandbreite an. Zum Beispiel zeigt Telestream Wirecast die Ausgabestatistiken oben auf der Seite an. Diese Informationen sind nützlich, wenn Sie den stabilsten und hochwertigsten Stream mit höchster Qualität ermitteln, der auf vorgegebener Hardware möglich ist.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/13289/node13289-wirecast.png"/></figure>
-    <p>In Wirecast zu beachten:</p>
-    <ul>
-      <li>Die CPU-Auslastung sollte weniger als 80 % betragen.</li>
-      <li>Die Datenrate sollte möglichst nahe an der Zielbitrate liegen.</li>
-      <li>Die Bilder pro Sekunde (fps) sollten den Einstellungen für den eingehenden Stream entsprechen.</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="prepare">Vorbereiten einer Veranstaltung</h2>
-    <p>Testen Sie vor der Verwendung des Live-Moduls für eine Produktionsveranstaltung die gesamte Kette, um den Erfolg zu gewährleisten. Zwei Hauptbereiche sind zu testen:</p>
-    <ul>
-      <li>Der Workflow für die Videoproduktion</li>
-      <li>Die Tools, die für die Verbindung mit dem Live-Modul verwendet werden</li>
-    </ul>
-    <p>Für jeden neuen Standort und bei jeder Änderung der Hard- oder Softwarekonfiguration sollte das Testen wiederholt werden.</p>
-    <h3>Produktion</h3>
-    <p>Der Livefeed, der generiert und an Codierhardware oder -software gesendet wird, kann von einer einfachen Webcam oder auch von einer mit mehreren Kameras aufgezeichneten und editierten Liveveranstaltung stammen. Unabhängig von der Quelle muss die Qualität des eingehenden Videofeeds während der gesamten Veranstaltung gleich bleiben. Stellen Sie sicher, dass beim Wechseln von Kamerawinkeln oder -systemen die Auflösung und die Anzahl der Audiokanäle gleich bleiben.</p>
-    <h3>Verbindung mit dem Live-Modul</h3>
-    <p>Testen Sie die Verbindung mit dem Live-Modul im selben Netzwerk, mit demselben eingehenden Livefeed und derselben Codiersoftware, die auch bei der tatsächlichen Veranstaltung verwendet werden. Ziel ist eine möglichst exakte Kopie der Voraussetzungen bei der tatsächlichen Veranstaltung.</p>
-    <h3>Tag der Veranstaltung</h3>
-    <p>Beginnen Sie den Livestream also mindestens 10 Minuten vor der geplanten Übertragung. Wenn Sie bereits 30 Minuten früher beginnen, bleibt Ihnen mehr Zeit für die Koordination und Lösung möglicher Probleme.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="issues">Probleme beim Livestreaming</h2>
-    <p>Durch das Testen des Livestreams, das Festlegen der idealen Einstellungen für den eingehenden Stream und die Vorbereitung des Veranstaltungsortes für die Veranstaltung wird die Wahrscheinlichkeit möglicher Fehler stark reduziert. Sie sollten jedoch trotzdem immer auf mögliche Probleme vorbereitet sein.</p>
-    <h3>Verbindungstrennung</h3>
-    <p>Netzwerkausfälle, Codiererprobleme oder ein Stromausfall können zur Folge haben, dass die Verbindung zum Live-Modul unterbrochen wird. Live-Events haben eine <strong>Reconnect Time</strong>, also die Zeit in Minuten, um auf die Wiederverbindung eines Streams zu warten. Wenn eine Verbindung unterbrochen wird, trennt das Live-Modul die nach der gewählten Wiederverbindungszeit. Legen Sie die Wiederverbindungszeit fest, indem Sie die <strong>erweiterten Optionen</strong> beim Erstellen eines Ereignisses erweitern:</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/13289/node13289-adv-options.png"/></figure>
-    <p>Das Live-Modul akzeptiert jede Anzahl von Verbindungstrennungen und erneuten Verbindungen während dieses Zeitraums, ohne dass ein neuer Stream gestartet werden muss. Nachdem eine Streamverbindung wiederhergestellt wurde, wird die Wiedergabe ab dem letzten Bild fortgesetzt. Endet die Veranstaltung ohne wiederhergestellten Stream, zeigt der Player eine Meldung mit dem Hinweis an, dass der Stream nicht gefunden wurde.</p>
-    <aside class="bcls-aside bcls-aside--information">Hinweis: Bei der Trennung und Wiederherstellung der Verbindung müssen die Streameinstellungen gleich bleiben. Jede Änderung der Anzahl von Audiokanälen, Auflösungen oder Codeceinstellungen kann zu unerwartetem Verhalten führen.</aside>
-    <h3>Latenz</h3>
-    <p>Die Streaminglatenz – der Zeitunterschied zwischen den Bildern, die ein Betrachter sieht, und der tatsächlichen Liveveranstaltung – macht sich an drei Stellen bemerkbar:</p>
-    <ul>
-      <li>Der Encoder vor Ort</li>
-      <li>Cloud-Transcodierung</li>
-      <li>bei der CDN-Bereitstellung</li>
-    </ul>
-    <p>Der Codierer vor Ort und das Cloud-Transcodiersystem des Live-Moduls verursachen eine Gesamtlatenz von 1,5 bis 5 Sekunden. Abhängig vom CDN tritt eine Latenz von weiteren 15 bis 90 Sekunden auf. Latenzen zwischen 15 und 90 gelten als normal bei Livefeeds und sind nötig, um Millionen gleichzeitiger Betrachter zu unterstützen, die sich eine Liveveranstaltung ansehen.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="trouble">Fehlerbehebung bei Problemen mit dem Live-Stream</h2>
+    <h2 id="Content_context">Inhaltskontext</h2>
+    <p>Die Art des gestreamten Inhalts muss berücksichtigt werden, da er sich auf die erforderlichen Einstellungen zur Aufrechterhaltung der Qualität der Eingabe auswirkt. Beachten Sie, dass es Kompromisse gibt und die Verwendung der höchstmöglichen Einstellungen zu Problemen wie übersprungenen Frames führen kann.</p>
+    <p>Basierend auf den folgenden Informationen empfehlen wir Ihnen, vor Ihrem Live-Event verschiedene Einstellungskombinationen auf Qualität und Leistung zu testen.</p>
+    <p>Die wichtigsten Eingabeparameter sind in der folgenden Tabelle aufgeführt:</p>
     <table class="bcls-table">
+      <caption class="bcls-caption--table">Wichtige Eingabeparameter für Live-Streaming</caption>
       <thead class="bcls-table__head">
         <tr>
-          <th width="163">Problem</th>
-          <th width="531">Lösung</th>
+          <th>Parameter</th>
+          <th>Anmerkungen</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
-          <td>Wiedergabe friert ein, Audio läuft weiter</td>
-          <td>Überprüfen Sie den eingehenden Feed an den Codierer, und stellen Sie fest, ob der Codierer korrekt verbunden ist und Video codiert. Wurde die Verbindung getrennt, stellen Sie vor dem erneuten Herstellen der Verbindung sicher, dass die Streameinstellungen identisch sind.</td>
+          <td>Eingabebitrate</td>
+          <td>Die Bitrate, die der Encoder sendet. Höhere Raten sind anfälliger für Netzwerkverluste und sollten daher so niedrig wie möglich gehalten werden.</td>
         </tr>
         <tr>
-          <td>Stream ist im Player eingefroren</td>
-          <td>Vermutlich empfängt das Live-Modul keine Daten mehr vom Eingangscodierer. Bestätigen Sie, dass der eingehende Stream aktiv ist, verbunden ist und die Daten schneller als in Echtzeit überträgt.</td>
+          <td>Eingangsauflösung</td>
+          <td>Dieser sollte mit dem Quellinhalt übereinstimmen. Es hat keinen Vorteil, dies größer als die ursprüngliche Quelle zu machen, und je höher dieser Wert ist, desto höher ist die Bitrate, die zur Unterstützung erforderlich ist.</td>
         </tr>
         <tr>
-          <td>Beeinträchtigung der Wiedergabe</td>
-          <td>Vergewissern Sie sich, dass die Bandbreite hoch genug ist, um die Bitrate des eingehenden Streams zu unterstützen. Die Wiedergabe wird in der Regel beeinträchtigt, wenn bei der Produktion ein Problem vorliegt oder die Bandbreite nicht hoch genug ist.</td>
+          <td>Eingangsbitrate zu Top-Profil-Verhältnis</td>
+          <td>
+            Die Eingangsbitrate sollte höher sein als die Rate des Top-Profils, aber zu viel höher kann zu ausgelassenen Frames oder anderen Problemen führen - wenn Ihre Top-Rate zB 1080p 30fps beträgt, sollte die Eingabe idealerweise etwa 4 MBPS betragen. Beachten Sie, dass dies vom Profil beeinflusst wird. Wir empfehlen generell eine Eingabebitrate, die 2x (zweimal) der Bitrate Ihrer Live-Wiedergabe mit der höchsten Bitrate entspricht.
+            <p>Wenn Sie eine Spitzenausgabe mit hoher Bitrate benötigen, lohnt es sich, die <code>copy_video</code> Einstellung, die einfach Ihre Eingabecodierung in die Ausgabe kopiert.</p>
+          </td>
         </tr>
         <tr>
-          <td>Leerer Bildschirm</td>
-          <td>Bestätigen Sie, dass die Bandbreite hoch genug ist. Vergewissern Sie sich im Falle einer Verbindungstrennung, dass sich die Änderungen vor dem Wiederherstellen der Verbindung nicht geändert haben.</td>
+          <td>Profile</td>
+          <td>
+            Die verschiedenen Profile (Baseline, Main, High) komprimieren die Daten in aufsteigenden Mengen (Baseline: niedrigste, hoch: höchste). Eine stärkere Komprimierung verbessert die Übertragungsrate, erfordert jedoch auch größere CPU-Ressourcen, um die Daten zu decodieren. Sofern der Encoder nicht in Bezug auf die verfügbaren Ressourcen stark eingeschränkt ist, sollte das Baseline-Profil vermieden werden. Andererseits führt die Verwendung von High Profile bei hohen Bitraten eher zu übersprungenen Frames aufgrund der erhöhten erforderlichen Decodier-CPU-Ressourcen.
+            <p>Siehe auch <a href="#gop_structure">GOP-Struktur</a> unter.</p>
+          </td>
         </tr>
         <tr>
-          <td>Mehr Latenz als erwartet</td>
-          <td>Überprüfen Sie die verfügbare Bandbreite, und stellen Sie sicher, dass die Daten in Echtzeit an das Live-Modul übertragen werden. Die Veröffentlichung eines Streams kann bis zu 10 Minuten dauern. In diesem Zeitraum wird der Stream zwischengespeichert und die Latenz ist am längsten. Nach dem Veröffentlichen wird die Latenz zunehmend geringer, bis sie sich bei 30 bis 90 Sekunden stabilisiert.</td>
+          <td>Bildrate</td>
+          <td>
+            Dies sollte mit der Quelle übereinstimmen.
+            <p>Höhere Raten erfordern proportional höhere Eingangsbitraten, z. B. bei Actionsport-Inhalten enthält ein Eingangsstrom von 60 fps wesentlich mehr Daten als ein Stream mit 30 fps.</p>
+            <p>Bei hohen Raten wie 60 fps treten bei komplexen Inhalten bei hohen Bitraten eher Probleme mit überspringenden Frames auf.</p>
+          </td>
         </tr>
         <tr>
-          <td>Haben Ihre zugewiesenen redundanten Streams basierend auf Ihrem Konto bereits aufgebraucht.</td>
-          <td>Möglicherweise haben Sie redundante Gruppen, die auf Ihr Kontolimit angerechnet werden. Sobald ein Ereignis mit redundanten Streams abgeschlossen oder abgebrochen wird, ist es im Live-Modul nicht mehr sichtbar. Solche Ereignisse können jedoch über die Live-API aufgelistet und gelöscht werden. <a target="_blank" href="/live-api/references/reference.html#tag/Redundant-Groups">Siehe Live-API: Redundante Gruppen.</a></td>
+          <td>Keyframe-Rate</td>
+          <td>
+            Die effizienteste Einstellung hierfür ist die Segmentdauer x Bildrate. Wenn Sie beispielsweise 6-Sekunden-Segmente und 30 fps haben, würde eine Schlüsselbildrate von 180 (6x30) zur niedrigsten Decoderlast führen.
+            <p>Um Schwankungen auszugleichen, wird diese jedoch auf das 2-fache der Bildrate eingestellt - beispielsweise 60 für eine Bildrate von 30 fps.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>GOP-Struktur</td>
+          <td>Sehen <a href="#gop_structure">GOP-Struktur</a> unter.</td>
         </tr>
       </tbody>
     </table>
-    &nbsp;
-    <div class="BCL-subsection">
-      <h3>Weitere Hilfe</h3>
-      <p>Falls Sie beim Einrichten Ihrer Live-Veranstaltung Hilfe benötigen, <a href="https://supportportal.brightcove.com/create">kontaktieren Sie uns</a>. Um sicherzustellen, dass Ihr Problem schnellstmöglich gelöst wird, sollten Sie die folgenden Informationen für den Brightcove Support bereitstellen:</p>
+    <h3>Eingabebeschränkungen</h3>
+    <p>Um die höchste Qualität und das beständigste Streaming-Erlebnis zu gewährleisten, beschränkt Brightcove Live die Einstellungen für den Eingabestream auf:</p>
+    <ul>
+      <li>Protokoll: <code translate="No">rtmp</code>, <code translate="No">rtp</code>, <code translate="No">rtp-fec</code>, oder <code translate="No">srt</code>(alle außer <code translate="No">rtmp</code> für MPEG2-TS-Eingänge)<sup><strong><a href="#note1-1">[1-1]</a></strong></sup></li>
+      <li>Auflösung: Maximal 1920 x 1080</li>
+      <li>Maximal 30 fps, was typisch ist. Brightcove unterstützt bis zu 60 fps, dies ist jedoch erforderlich <a href="https://supportportal.brightcove.com/create">Wenden Sie sich an den Brightcove-Support</a> das Limit erhöhen lassen. Bei Verwendung von 60 fps empfiehlt Brightcove, die Bitrate zu erhöhen, um die gewünschte visuelle Qualität für den Inhalt und eine konstante Bildrate zu erzielen.</li>
+      <li>Weniger als 10 Mbit / s</li>
+      <li>Konstante Bitrate (CBR) reduzieren die Wahrscheinlichkeit von Problemen erheblich</li>
+      <li>Videocodec muss H.264 sein</li>
+      <li>Scheiben: Wenn Ihr Encoder diese Option hat, stellen Sie ihn auf <code translate="no">1</code></li>
+      <li>Audio-Codec muss sein <code translate="No">AAC</code></li>
+      <li>Audio-Abtastrate: 44,1 kHz und 48 kHz sind die empfohlenen Beispiel-Audioraten</li>
+      <li>Keyframe Rate oder GOP (Gruppe von Bildern) ausgerichtet:
+        <ol type="a">
+          <li>EIN <strong>Schlüsselbild</strong> sollte immer alle 2 Sekunden auftreten <strong>für Eingänge und Ausgänge (einschließlich 25fps-Video)</strong>. Das heißt, alle zwei Sekunden des Streams selbst wird vom Encoder ein Keyframe an Brightcove gesendet. Dieser Prozess kann aber auf verschiedene Arten definiert werden <strong>Keyframe-Rate</strong> ist am häufigsten. </li>
+          <li>Sie kann von verschiedenen Encodern auf unterschiedliche Weise berechnet werden. Beispielsweise:
+            <ul>
+              <li>Wirecast verwendet die Anzahl der durchgelassenen Frames. Für ein 30-fps-Video wäre die Einstellung also 60.</li>
+              <li>Elementarcodierer verwenden Sekunden, damit die richtige Einstellung '2' ist.</li>
+              <li>60 FPS-Videos ändern sich nur, wenn diese Einstellung von den Frames gezählt wird. In diesem Fall entsprechen alle 120 Frames 2 Sekunden.</li>
+            </ul>
+          </li>
+        </ol>
+      <li>Wenn es eine Option für <strong>Keyframe Aligned</strong>, Rep. <strong>synchronisieren</strong>, Keyframes <strong></strong> ausrichten oder etwas in dieser Richtung gibt, stellen Sie sicher, dass Keyframes ausgerichtet sind. Wenn Keyframes nicht ausgerichtet sind, treten Synchronisationsprobleme bei der HLS-Segmentierung auf.</li>
+    </ul>
+    <h4>Anmerkungen</h4>
+    <ul>
+      <li id="note1-1"><sup><strong>[1-1]</strong></sup> Wenn Sie mehrere Video-/Audiospuren in Ihrem TS-Eingang haben, wählen wir jeweils die erste aus. Wir empfehlen außerdem dringend, FEC zu verwenden, da einfache TS über UDP über das Internet sehr unzuverlässig sind. Für FEC konnten wir feststellen, dass die <em>kleiner</em> die Werte, die Sie für Zeilen/Spalten verwenden, desto zuverlässiger ist die Fehlerkorrektur (auf Kosten einer erhöhten Bandbreite.</li>
+    </ul>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Key_issues">Hauptprobleme beim Streaming</h2>
+    <p>Im Allgemeinen treten mehrere Probleme auf, die sich auf Probleme mit der Streaming-Erfahrung vom Encoder zu Brightcove beziehen:</p>
+    <ol>
+      <li>
+        Netzwerkinstabilität, die den Eingang beeinflusst:
+        <ol>
+          <li>Obwohl das Internet im Allgemeinen recht zuverlässig ist, ist es nicht unfehlbar und es treten Probleme auf. Probleme werden bei höheren Bitraten eher bemerkt.</li>
+          <li>Wenn das Hochladen des Videos länger dauert als in Echtzeit, kann dies zu einer Eingangsdrift führen (der Zeitpunkt, zu dem das Video empfangen wird, liegt wesentlich später als beim Senden).</li>
+        </ol>
+      </li>
+      <li>
+        Transcoder-Überlastung, die zu Überspringen von Frames führt: Während wir alles tun, um sicherzustellen, dass unsere Transcoder genügend Overhead haben, können manchmal plötzliche Spitzen in der Inhaltskomplexität, Netzwerk-Hiccups / Catchups oder andere Unterbrechungen unserer Transcoder zu Überspringen-Frames führen. Je komplexer die Eingabe ist, desto wahrscheinlicher sind übersprungene Frames. Es gibt auch ein bekanntes Problem, bei dem Änderungen von einem Standbild über einen längeren Zeitraum, z. B. länger als 5 Minuten, und eine plötzliche Änderung des Aktionsinhalts zu einer Überlastung führen können.
+      </li>
+      <li>Encoder sendet variable Framedauern: Die Framerate sollte konstant sein und ein konstantes Keyframe-Intervall ermöglichen. Bei einer Bildrate wie 29,97 aka 30000/1001 oder 23,976 aka 24000/1001 ist es beispielsweise nicht möglich, einen Keyframe in regelmäßigen Abständen zu setzen und sollte daher vermieden werden.</li>
+      <li>Encoder, der Keyframes sendet, die keine konsistente Dauer voneinander entfernt sind, sollte die Keyframe-Rate mindestens das Doppelte der Bildrate in Sekunden betragen. Bei einer Bildrate von 30 Bildern pro Sekunde sollte das Keyframe-Intervall beispielsweise 60 Bilder betragen, was 2 Sekunden entspricht, und sollte ein maximales Intervall von einmal pro Segment sein. Wenn Sie beispielsweise ein 6-Sekunden-Segment haben, beträgt das maximale Intervall 180 Bilder bei 30 fps</li>
+    </ol>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Content_types">Inhaltstypen</h2>
+    <p>Im Allgemeinen erfordern komplexere Inhalte die Verwendung der höheren dieser Einstellungen und sind daher anfälliger für übersprungene Frames. Die folgende Tabelle zeigt einige Beispiele in der Reihenfolge ihrer Komplexität. Beachten Sie, dass dies nur Beispiele sind und fast jedes Encoder-Setup anders ist. Es sollten Tests und Verifizierungen durchgeführt werden.</p>
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">Beispiele für Inhaltstypen</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>Inhaltstyp</th>
+          <th>Beispieleinstellungen</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td>Webcam</td>
+          <td>
+            <ul>
+              <li>Auflösung: 360p</li>
+              <li>Bitrate: 1 MBPS</li>
+              <li>Profil: Basislinie</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Webkonferenz</td>
+          <td>
+            <ul>
+              <li>Auflösung: 480p</li>
+              <li>Bitrate: 2,5 MB/s</li>
+              <li>Profil: Hauptsächlich</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Animation</td>
+          <td>
+            <ul>
+              <li>Auflösung: 720p</li>
+              <li>Bitrate: 2,5 MB/s</li>
+              <li>Profil: Hauptsächlich</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Sprechender Kopf / Nachrichten</td>
+          <td>
+            <ul>
+              <li>Auflösung: 720p</li>
+              <li>Bitrate: 4 MBPS</li>
+              <li>Profil: Hauptsächlich</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Live-Konzert</td>
+          <td>
+            <ul>
+              <li>Auflösung: 1080p (oder Quelle)</li>
+              <li>Bitrate: 5 MB/s</li>
+              <li>Profil: Hoch</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Live-Sport</td>
+          <td>
+            <ul>
+              <li>Auflösung: 1080p (oder Quelle)</li>
+              <li>Bitrate: 6 MB/s</li>
+              <li>Profil: Hoch</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Live-Sport mit hoher FPS</td>
+          <td>
+            <ul>
+              <li>Auflösung: 1080p (oder Quelle)</li>
+              <li>Bitrate: 10 MBPS</li>
+              <li>Profil: Hoch</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="verification">Verifizierung und Prüfung</h2>
+    <p>Idealerweise sollten Sie mit den niedrigstmöglichen Einstellungen für Ihre komplexesten (am meisten wechselnden Inhalte) beginnen und mit deren Inhalten testen, indem Sie die verschiedenen Einstellungen erhöhen, bis die Ausgabe akzeptabel ist. Dies liegt daran, dass im Allgemeinen, je höher die Einstellungen sind, desto wahrscheinlicher Probleme im Netzwerk oder bei der Transcodierung auftreten.</p>
+    <h3>Testen der Bandbreite</h3>
+    <p>Der erste Schritt, um zu den entsprechenden Einstellungen für den Eingabestream zu gelangen, besteht darin, die verfügbare Bandbreite vor Ort zu ermitteln. Es gibt einige Tools, die helfen können:</p>
+    <ul>
+      <li>SpeedOF.me (<a href="https://speedof.me">http://speedof.me</a>) - Die Bestimmung der Gesamtbandbreite, die für HTTP-Verbindungen verfügbar ist, ist ein guter erster Schritt. Da der Eingabe-Feed jedoch über RTMP anstelle von HTTP an das Live-Modul gestreamt wird, ist die tatsächlich für RTMP-Verbindungen verfügbare Bandbreite erheblich geringer.</li>
+      <li>Speedtest (<a href="http://www.speedtest.net">http://www.speedtest.net</a>) - Online-Tool zur Bestimmung der aktuellen Upload- und Download-Geschwindigkeiten.</li>
+    </ul>
+    <h3>Eingangsbandbreite</h3>
+    <p>Die Bereitstellung eines qualitativ hochwertigen, stabilen Eingabestreams ist der einzige Weg, um den Zuschauern die bestmögliche Benutzererfahrung zu bieten. Ein guter Eingabestream bietet die beste Videoqualität bei der höchsten konsistent verfügbaren Bandbreite von einem Standort.</p>
+    <ul>
+      <li>Minimale Eingangsbandbreite: 2,5 Mbit / s</li>
+      <li>Maximale Eingangsbandbreite: 10 Mbit / s</li>
+    </ul>
+    <aside class="bcls-aside bcls-aside--information">Hinweis: Um die beste Benutzererfahrung zu erzielen, passen Sie Ihre Ausgabewiedergaben an die Qualität Ihres Encoder-Streams an.</aside>
+    <h3>Bestimmen der Geberfähigkeiten</h3>
+    <p>Es ist auch wichtig, die Funktionen der Software und Hardware zu verstehen, die zum Codieren des Live-Streams und zum Senden an das Live-Modul verwendet werden. Es kann viel Bitrate geben, um einen hochwertigen 1080p-Eingabestream zu senden, aber die Hardware muss auch in der Lage sein, schneller als in Echtzeit zu codieren. Einige Codierungstools zeigen Informationen über die gesamte CPU-Auslastung und die verwendete Bandbreite an. Beispielsweise zeigt Telestream Wirecast die Ausgabestatistiken oben auf der Seite an. Diese Informationen sind nützlich, um den stabilsten Stream mit der höchsten Qualität zu ermitteln, der auf einer bestimmten Hardware möglich ist.</p>
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/13289/node13289-wirecast.png" /></figure>
+    <p>Dinge, die Sie in Wirecast sehen sollten:</p>
+    <ul>
+      <li>Die CPU sollte weniger als 80% betragen</li>
+      <li>Die Datenrate sollte in der Nähe der Zielbitrate liegen</li>
+      <li>FPS sollte mit der Geschwindigkeit der Einstellungen des Eingabestreams übereinstimmen</li>
+    </ul>
+
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="gop_structure">GOP-Struktur</h2>
+    <p>Die Group of Pictures (GOP)-Struktur des Videos hängt zunächst von dem Profil ab, das verwendet wird als:</p>
+    <ol>
+      <li><strong>Basislinie</strong> Profil unterstützt nur I- und P-Frames und CAVLC-Entropie-Codierung</li>
+      <li><strong>Hauptsächlich</strong> und <strong>Hoch</strong> unterstützt I-, B- und P-Frames und CABAC-Entropie-Codierung</li>
+    </ol>
+    <p>Main- und High-Profile führen im Allgemeinen zu einer besseren Komprimierung bei besserer Qualität, erfordern jedoch auch zusätzliche Berechnungen zum Kodieren und Dekodieren, da solche anfälliger für übersprungene Frames sein können. Da diese Profile außerdem B (bidirektionale) Frames verwenden, führen sie zu einer gewissen Verzögerung beim Codierungsprozess.</p>
+    <p>Das Baseline-Profil erfordert weniger CPU zum Kodieren und Dekodieren, aber da es weniger Komprimierung bietet, erfordert es eine höhere Bitrate, um die Qualität beizubehalten, und ist daher anfälliger für Netzwerkprobleme.</p>
+    <h3>Hinweise zu Frame-Typen und deren wahrscheinlichen Auswirkungen auf die Leistung:</h3>
+    <ol>
+      <li><strong>I frames</strong>: verwendet die meiste Bandbreite. Am besten bei kompletten Szenenwechseln oder an den Segmentgrenzen hinzugefügt - dh je mehr sich der Inhalt ändert, desto mehr davon benötigen Sie (kürzere GOP-Länge)</li>
+      <li><strong>P-Frames</strong>: sind die Basiseinheit zwischen I-Frames</li>
+      <li><strong>B-Frames</strong>: Verwenden Sie sowohl vorherige als auch zukünftige Frames, je mehr Sie hinzufügen, desto besser wird die Komprimierung sein, aber desto höher ist die CPU und Latenz</li>
+    </ol>
+    <p>Die Verwendung von <strong>ich rahmen</strong> sollte idealerweise auf den Anfang von Segmenten (kritisch bei Verwendung von Passthrough) oder Szenenwechsel beschränkt sein. Alle oder eine hohe Anzahl von I-Frames sollten vermieden werden, da dies zu einer Überlastung führen kann, die zu übersprungenen Frames führt.</p>
+    <h3>Zusätzliche Bemerkungen:</h3>
+    <ul>
+      <li>Verwenden Sie Optionen zum Verhindern einer dichten Platzierung von Keyframes (Beispiel: <code>min_keyin</code> = 3+).</li>
+      <li>Verwenden Sie Optionen, die eine regelmäßige Einfügung von Keyframes sicherstellen. Anstatt beispielsweise die GOP-Länge in Sekunden anzugeben, geben Sie sie in exakten Brüchen oder Frames an.</li>
+    </ul>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="bitrate">Bitrate</h2>
+    <ul>
+      <li>Minimale Eingangsbandbreite: 2,5 Mbit / s</li>
+      <li>Maximale Eingangsbandbreite: 10 Mbit / s</li>
+    </ul>
+
+    <ul>
+      <li>Mach den Stream "fast CBR" - mit <code>max_bitrate</code> = 1,1 * Zielbitrate.</li>
+      <li>Verwenden Sie, falls verfügbar, einen strikten HRD-konformen Ratensteuerungsmodus.</li>
+    </ul>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Protocol">Protokoll</h2>
+    <p>Es ist wichtig zu beachten, dass das Internet kein garantiertes Bereitstellungsnetzwerk ist und dass eine Internetverbindung zwar als "gut" angesehen werden kann, aber für zuverlässiges Live-Videostreaming in hoher Qualität möglicherweise nicht gut genug ist. Eine kleine Unterbrechung des Pfads zwischen dem Kunden-Encoder und der Brightcove-Transkodierungsplattform, wie beispielsweise eine geringe Überlastung bei einem ISP, ein ungeplanter Failover zwischen Routern oder ähnliche Probleme, können eine Unterbrechung der Videoausgabe verursachen. Bei Live-Übertragungen mit hohen Einsätzen ist es üblich, mehrere dedizierte Netzwerke zu haben, die entweder aus dedizierter Glasfaser, gebuchter Satellitenbandbreite oder zugesicherter Bandbreite in einem verwalteten Netzwerk bestehen. Dies ist mit erheblichen Kosten verbunden, und in den meisten Fällen ist es möglich, über das Internet ein ausreichend gutes Ergebnis zu erzielen. Wenn es jedoch wichtig ist, einen fehlerfreien Transport aufrechtzuerhalten, ziehen Sie AWS Direct Connect oder einen ISP in Betracht, der ein gewisses Maß an dedizierter Bandbreite bereitstellen kann.</p>
+    <p>Die von uns empfohlenen Optionen sind (in der Reihenfolge):</p>
+    <ol>
+      <li><strong>SRT</strong> - bietet eine gute Kombination aus Transportgeschwindigkeit (UDP) mit einer gewissen Kontrolle und Fehlerresistenz. Nicht auf allen Encodern verfügbar, obwohl es Tools gibt, die vom lokalen RTP übersetzen können, wie z. B. srt-transmit.</li>
+      <li><strong>RTMP</strong> - Da es TCP-basiert ist, bietet es eine gute Fehlerresistenz, Nachteile sind, dass dies mit einem erheblichen Overhead verbunden ist. Beachten Sie, dass bei RTMP nicht alle Funktionen wie z. B. mehrere Audiospuren verfügbar sind.</li>
+      <li><strong>RTP-FEC</strong> - bietet schnellen UDP-basierten Transport mit einer gewissen Fehlerresistenz</li>
+      <li><strong>RTP</strong> - bietet schnellen Transport und erweiterte Funktionen ohne Fehlerresistenz</li>
+    </ol>
+    <aside class="bcls-aside bcls-aside--information">Hinweis: Wenn Sie RTMP verwenden, sollten Sie nach Möglichkeit Slices deaktivieren, da dies dazu führen kann, dass Teile eines Frames nicht in der richtigen Reihenfolge ankommen.</aside>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Certified_encoders">Unterstützte Encoder</h2>
+
+    <p>Sehen <a href="/general/supported-encoders-live-events.html">Unterstützte Encoder für Live-Events</a> Für eine Liste der Encoder, von denen bekannt ist, dass sie mit Live arbeiten. Beachten Sie, dass andere Encoder möglicherweise ebenfalls funktionieren, jedoch nicht getestet wurden.</p>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="Supported_CDNs">Unterstützte CDNs</h2>
+
+    <ul>
+      <li>Akamai</li>
+      <li>Amazon CloudFront</li>
+    </ul>
+
+    <aside class="bcls-aside bcls-aside--information">Die oben genannten CDNs werden offiziell unterstützt, aber andere dateibasierte CDNs sollten funktionieren.</aside>
+
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="retries">Wiederholungen</h2>
+
+    <p>Wir empfehlen, Wiederholungsversuche für die RTMP-Verbindung vom Encoder aus zu aktivieren. Eine große Anzahl von Wiederholungsversuchen mit einem Wiederholungsintervall von 5 Sekunden verringert alle intermittierenden Verbindungsprobleme zwischen dem Codierer und dem Einstiegspunkt.</p>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="job_settings">Auftragseinstellungen (nur Live-API)</h2>
+
+    <p>Empfohlene Jobeinstellungen</p>
+
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">Auftragseinstellungen</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>Feld</th>
+          <th>Empfohlener Wert</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td><code translate="No">ad_audio_loudness_level</code></td>
+          <td><code translate="No">-23 </code>(EBU R.128 Standard)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- <section class="bcls-section">
+    <h2 id="input_requirements">Input requirements</h2>
+
+    <p>The following table shows requirements for the input live stream.</p>
+
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">Input Requirements</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>Item</th>
+          <th>Requirement</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td>Protocol</td>
+          <td><code translate="No">rtmp</code>, <code translate="No">rtp</code>, <code translate="No">rtp-fec</code>, or <code translate="No">srt</code> (all except <code translate="No">rtmp</code> are for MPEG2-TS inputs)<sup><strong><a href="#note1-1">[1-1]</a></strong></sup></td>
+        </tr>
+        <tr>
+          <td>Video format</td>
+          <td>h.264</td>
+        </tr>
+        <tr>
+          <td>Audio format</td>
+          <td>AAC</td>
+        </tr>
+        <tr>
+          <td>Maximum audio sampling rate</td>
+          <td>up to 48000 Hz (Brightcove Support can increase this value on request)</td>
+        </tr>
+        <tr>
+          <td>Resolution</td>
+          <td>Up to 1080p (width: 1920 pixels; height: 1080 pixels)</td>
+        </tr>
+        <tr>
+          <td>Bitrate</td>
+          <td>Must be at least as high as the highest output bitrate - maximum: 10MBPS.
+            <p>In almost all cases, Brightcove Support has found that using Constant Bitrate for the input stream greatly reduces the chance of problems.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Framerate</td>
+          <td>30 fps (you can submit a <a href="https://supportportal.brightcove.com/s/login/?language=en_US">Support request</a> to have the limit raised to 60fps)</td>
+        </tr>
+        <tr>
+          <td>Slices</td>
+          <td>If your encoder has this option, set it to <code translate="no">1</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Notes</h3>
+
+    <ul>
+      <li id="note1-1"><sup><strong>[1-1]</strong></sup> If you have multiple video/audio tracks in your TS input, we will pick the first for each. We also strongly recommend using FEC, as plain TS over UDP over the internet is very unreliable. For FEC, we could note that the <em>smaller</em> the values you use for rows/columns, the more reliable the error correction will be (at the cost of increased bandwidth.</li>
+    </ul>
+  </section> -->
+
+  <section class="bcls-section">
+    <h2 id="slate_source_file_recommendations">Empfehlungen für Slate-Quelldateien</h2>
+
+    <ul>
+      <li><strong>Auflösung</strong>: (am besten in deiner Codierleiter)</li>
+      <li><strong>FPS</strong>: (wie Ihre Quelle)</li>
+      <li><strong>Bitrate</strong>: (am besten in deiner Codierleiter oder besser)</li>
+      <li><strong>Audio</strong>: (gleiche Bitrate, Kanäle, Abtastfrequenz und Bits pro Sample wie Ihre beste Wiedergabe oder wie Ihre Eingabe)</li>
+    </ul>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="output_recommendations">Ausgabeempfehlungen</h2>
+
+    <p>Nachfolgend finden Sie empfohlene Ausgabeeinstellungen. Beachten Sie jedoch, dass bei vielen Encodern der RTMP-Eingang auf 10 MBPS (Video + Audio) und eine Bildrate von 30 fps begrenzt ist.</p>
+
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">Ausgabeempfehlungen</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>Artikel</th>
+          <th>Empfehlung</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td>Video-Codec</td>
+          <td><code translate="No">h264</code> ist derzeit die einzige Option</td>
+        </tr>
+        <tr>
+          <td>Audio-Codec</td>
+          <td><code translate="No">aac</code> ist derzeit die einzige Option</td>
+        </tr>
+        <tr>
+          <td>Breite</td>
+          <td>Wenn nein <code translate="No">width</code> oder <code translate="No">height</code> geliefert wird, werden die Quellabmessungen verwendet. Wenn entweder <code translate="No">width</code> oder <code translate="No">height</code> geliefert wird, wird die andere Abmessung berechnet, um das Seitenverhältnis der Quelle beizubehalten.</td>
+        </tr>
+        <tr>
+          <td>Höhe</td>
+          <td>Wenn nein <code translate="No">width</code> oder <code translate="No">height</code> geliefert wird, werden die Quellabmessungen verwendet. Wenn entweder <code translate="No">width</code> oder <code translate="No">height</code> geliefert wird, wird die andere Abmessung berechnet, um das Seitenverhältnis der Quelle beizubehalten.</td>
+        </tr>
+        <tr>
+          <td>Bitrate</td>
+          <td>Kleiner oder gleich der Eingabebitrate (für beste Ergebnisse sollte die höchste Ausgabebitrate die Hälfte der Eingabebitrate betragen)</td>
+        </tr>
+        <tr>
+          <td>Keyframe-Rate</td>
+          <td>2 Sekunden</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="bcls-section">
+    <h2 id="FAQ">FAQ</h2>
+
+    <dl>
+      <dt class="bcls-question">Wie schnell müssen Sie nach dem Erstellen eines Live-Jobs mit dem Streaming beginnen?</dt>
+      <dd class="bcls-answer">In Brightcove Live gibt es zwei Bedingungen, von denen aus der Status wechselt <code translate="No">waiting </code> zu <code translate="No">finishing </code>::
+        <ol>
+          <li>wenn der Job in der ist <strong>warten</strong> Zustand (noch nicht gestartet) und die <code translate="No">max_waiting_time_ms</code> abgelaufen ist, ist der Auftrag beendet / deaktiviert.</li>
+          <li>Wenn der Job in der ist <strong>getrennt</strong> Zustand (gestartet, aber nicht verbunden) und die <code translate="No">reconnect_time</code> abgelaufen ist, ist der Auftrag beendet / deaktiviert.</li>
+        </ol>
+
+        <p>Wenn die <code translate="No">event_length </code> länger als 30 Minuten ist, wird der Auftrag in 30 Minuten beendet. Wenn die <code translate="No">event_length </code> Wenn weniger als 30 Minuten vergangen sind, wird der Auftrag beendet <code translate="No">event_length </code>.</p>
+
+        <p>Zum Beispiel, wenn die <code translate="No">event_length </code> Nach 60 Minuten wird der Live-Job in 30 Minuten beendet. Wenn die <code translate="No">event_length </code> Nach 15 Minuten wird der Live-Job in 15 Minuten beendet</p>
+
+        <p>Das <code translate="No">reconnect_time </code> hat keine Auswirkung auf den Wartezustand.</p>
+      </dd>
+      <dt class="bcls-question">Was sind die Einschränkungen für gleichzeitige Live-Jobeinstellungen?</dt>
+      <dd class="bcls-answer">
+        <p>Maximal 5 aktiv <strong>Warten, nicht gestartet</strong> Jobs sind jederzeit erlaubt.</p>
+
+        <p>Zusätzliche Einschränkungen für gleichzeitige Jobs:</p>
+
+        <ul>
+          <li>Die Anzahl der <code translate="No">channel</code> (24x7) Jobs sind auf 0 oder eine niedrige Anzahl pro Region begrenzt (abhängig vom Kontotyp).</li>
+          <li>Die Anzahl der gleichzeitig <strong>Laufen</strong> <code translate="No">event</code> Arbeitsplätze sind regional begrenzt, in der Regel auf 100.</li>
+          <li>Die Anzahl der gleichzeitig <strong>Warten auf eine Verbindung</strong> <code translate="No">event</code> Jobs ist auf 5 begrenzt.</li>
+          <li>Die Anzahl der SEP-Jobs pro Region ist auf 3 oder 10 begrenzt (siehe <a href="https://apis.support.brightcove.com/live-api/getting-started/overview-brightcove-live-api.html#Support_aws_regions">Unterstützte AWS-Regionen</a>).</li>
+        </ul>
+
+        <p>Jedes dieser Limits kann vom Support auf Kontoebene angepasst werden. Wenden Sie sich an Ihren Account Manager, wenn Sie zusätzliche Kapazität benötigen.</p>
+      </dd>
+      <dt class="bcls-question">Kann Brightcove Live 1080p-Qualität pushen, sofern die Eingangsbandbreite ausreicht?</dt>
+      <dd class="bcls-answer">Ja, die 1080p-Eingabe ist für alle Konten aktiviert.</dd>
+      <dt class="bcls-question">Ist DRM verfügbar?</dt>
+      <dd class="bcls-answer">Ja! Wenden Sie sich an Ihren Account Manager, wenn Sie Ihrem Live-Account DRM-Unterstützung hinzufügen möchten.</dd>
+    </dl>
+    <section class="BCL-subsection">
+      <h3>Für weitere Hilfe</h3>
+      <p>Wenn Sie weitere Hilfe benötigen, damit Ihr Live-Event funktioniert, können Sie dies tun <a href="https://supportportal.brightcove.com/create">kontaktiere uns</a>. Um sicherzustellen, dass Sie die schnellstmögliche Antwort erhalten, finden Sie unten eine Liste der Funktionen, die der Brightcove-Support zur Lösung des Problems benötigt.</p>
       <ul>
-        <li>Beschreibung der speziellen Symptome des Streams. Beispiel: Ist überhaupt keine Wiedergabe möglich, oder kommt es zu Stockungen oder zum Einfrieren?</li>
-        <li>Information, ob der Stream bisher korrekt verfügbar war</li>
-        <li>Im Codierer verwendete Einstiegspunkt-URL</li>
-        <li>Verwendete Codiersoftware und -hardware</li>
-        <li>URL für den Player, auf dem Sie die Live-Veranstaltung veröffentlicht haben</li>
-        <li>Video-ID Ihrer Live-Datei in Video Cloud Studio</li>
-        <li>Ergebnisse einer Ablaufverfolgungsroute von Ihrem Encoder zum Host des Veröffentlichungspunkts</li>
+        <li>Die spezifischen Symptome, die der Stream hat. Spielt es zum Beispiel überhaupt nicht oder stottert oder friert es ein?</li>
+        <li>Ob dieser Stream in der Vergangenheit richtig funktioniert hat</li>
+        <li>Die Einstiegspunkt-URL, die Sie in Ihrem Encoder verwenden</li>
+        <li>Die von Ihnen verwendete Codierungssoftware und -hardware</li>
+        <li>Die URL zu dem Player, für den Sie das Live-Event veröffentlicht haben</li>
+        <li>Die Video-ID Ihres Live-Assets in Video Cloud Studio</li>
+        <li>Die Ergebnisse einer Trace-Route von Ihrem Encoder zum Publishingpoint-Host</li>
       </ul>
-    </div>
+    </section>
+
   </section>
 </article>
-
-<!-- complete bootstrap layout -->
-    </div>
-    <div class="col-sm-2 right-side-bar">
-      
-      <nav class="right-side-nav" id="right_side_nav">
-        <h6 class="toc">Inhalt der Seite</h6>
-        <ul id="in_page_nav" class="list-none"></ul>
-      </nav>
-      
-    </div>
-  </div>
-</div>
-
-<hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
-    <div class="region region-footer-top-center col-md-12">
-      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
-
-        <h2>Brightcove Support-Service</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://status.brightcove.com">Systemstatus</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontakt mit dem Support</a>
-          </li>
-          <li>
-            <a href="https://support.brightcove.com/">DOKUMENTATION</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
-
-        <h2>Schulungen</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">Online-Kurse</a>
-          </li>
-          <li>
-            <a href="https://studio.support.brightcove.com/training/register-training.html">Für einen Kurs anmelden</a>
-          </li>
-          <li>
-            <a href="https://university.brightcove.com/">Brightcove Universität</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
-
-        <h2>Brightcove</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://www.brightcove.com">brightcove.com</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?">Kontaktiere uns</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="region region-footer-bottom-center col-md-12">
-      <div class="bcls-copyright footer-menu">
-        <table>
-          <tr>
-            <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. Alle Rechte vorbehalten.</div>
-            </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Allgemeine Geschäftsbedingungen</a></td>
-            <td>
-              <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-      
-  var searchBox = sajari.init({
-    mode: "search-box",
-    project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
-    instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
-    maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
-  });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
-  
-
-</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
-  <script src="/assets/js/sites_nav.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
-  <script src="/assets/js/feedback.js"></script>
-  
-  <script src="/assets/js/sajari-search-foot.js"></script>
-  
-  <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
-    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
-      background-color: lightblue;
-    }
-    div.sj-tabs__tab {
-      margin-top: 3rem;
-      margin-left: .3rem;
-      border-top-left-radius: .4rem;
-      border-top-right-radius: .4rem;
-      background-color:#e8e8e8;
-    }
-
-    div.sj-tabs__tab.sj-tabs__tab--selected {
-      border-bottom-color: crimson;
-      background-color: #f8f8f8;
-    }
-
-    p.sj-results__result__description.css-p9jvyt {
-      font-size: 1rem;
-    }
-
-    .sj-result__text.css-31l7gp h3 {
-      color: navy;
-      font-size: 1.4rem;
-    }
-    </style>
-
-</body>
-
-</html>

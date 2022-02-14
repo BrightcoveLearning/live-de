@@ -1,0 +1,98 @@
+---
+title: Planung von Live-SEP-Events
+parent: Live Module
+---
+
+
+<article class="bcls-article">
+    <h1>Automatischer Start/Stopp von Live-Events mit statischen Einstiegspunkten</h1>
+    <summary>Mit dieser Funktion kann der Benutzer die Start- und Stoppzeit eines oder mehrerer Live Job-Ereignisse planen und verwalten. 
+        </summary>
+   
+
+        <section class="bcls-section">
+            <h2 id="schedule">Voraussetzungen</h2>
+
+            <p>Um Ereignisse zu planen, muss ein Live-Ereignis vom Typ SEP (Static Entry Point) erstellt werden.</p>
+
+            <aside class="bcls-aside bcls-aside--information">Derzeit wird das Scheduling von redundanten Gruppen nicht unterstützt.</aside>
+
+            <h2 id="schedule">Empfehlungen und Best Practices</h2>
+
+            <p>Für beste Ergebnisse folgen Sie bitte den Anweisungen unten.</p>
+                <ol class="bcls-tasklist-restart">
+                <li>Es können jeweils sechs ausstehende Aktivierungen geplant werden. Wenn weitere benötigt werden, wenden Sie sich bitte an den Kundendienst.</li>
+                <li>Sobald die SEP aktiviert ist, ist die standardmäßige maximale Wartezeit weiterhin gültig (siehe <a href="https://live.support.brightcove.com/live-api/guides/live-api-static-entry-points.html#max_waiting_time" target="_blank">Live-API: Statische Einstiegspunkte für weitere Informationen</a>).</li>
+                <li>Beachten Sie, dass die in der <a href="https://live.support.brightcove.com/live-api/guides/live-api-static-entry-points.html#Limitations" target="_blank">Statische Einstiegspunkte</a> sind noch gültig.</li>
+                </ol>
+        </section>
+
+        <section class="bcls-section">
+
+            <h2 id="schedule">Planungsfenster im Kontrollraum</h2>
+
+            <p>Wenn ein Live-Konto für Auto Start / Stop aktiviert ist, ist in der oberen rechten Ecke des Kontrollraums unter dem Preview-Player ein Planungsfenster verfügbar.</p>
+            <p>Befolgen Sie die nachstehenden Anweisungen, um Auto Start / Stop zu verwenden:</p>
+
+            <ol class="bcls-tasklist-restart">
+                <li>Erstellen Sie im Live-Modul ein neues Live-Ereignis mit einem statischen Einstiegspunkt oder besuchen Sie ein zuvor erstelltes.</li>
+                <li>In dem <strong>Kontrollraum</strong> wird ein neues Panel mit dem Namen Scheduling verfügbar sein. Klicken <strong>+ Zeitplan hinzufügen</strong> um eine neue automatische Aktivierung und Deaktivierung zu erstellen.
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/add-schedule.png" /></figure>
+
+                </li>
+                <li>Ändern Sie das Start- und Enddatum auf die gewünschte Aktivierung bzw. Deaktivierung.
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/start-end-dates.png" /></figure>
+                <aside class="bcls-aside bcls-aside--information">Obwohl wir nicht verhindern, dass mehrere Zeitpläne gleichzeitig ausgeführt werden, werden die in Konflikt stehenden Zeilen mit einer Warnung angezeigt. Widersprüchliche Zeitpläne schlagen wahrscheinlich fehl, wenn sie nicht vor der Aktivierungszeit behoben werden. Um die Warnung zu vermeiden, löschen Sie einfach eine der Zeilen oder passen Sie die Zeiten an.</aside>
+                </li>
+                <li>
+                    Um einen zweiten Zeitplan zu erstellen, klicken Sie erneut auf <strong>+ Zeitplan hinzufügen</strong> Taste. Das <strong>+ Zeitplan hinzufügen</strong> Die Schaltfläche wird automatisch deaktiviert, wenn das Limit der ausstehenden Aktivierungen erreicht ist.
+                    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/more-schedules.png" /></figure>
+
+                </li>
+                <li>Um einen Zeitplan zu löschen, klicken Sie auf das <img class="bcls-image--no-border" alt="" width="30" height="30" src="/assets/images/live-module/scheduling/trash-icon.png" /> -Symbol.</li>
+                
+            </ol>
+
+            <aside class="bcls-aside bcls-aside--information">
+
+                <ul>
+
+                    <li>Zeitplanereignisse werden als Warnung gelb, wenn widersprüchliche Zeitpläne vorliegen.</li>
+                    <li>Geplante Ereignisse werden rot, wenn das Streaming aus irgendeinem Grund fehlschlägt.</li>
+                    <li>Die fehlgeschlagenen Zeitpläne bleiben 7 Tage lang sichtbar. </li>
+
+                </ul>
+
+
+
+            </aside>
+
+
+        </section>
+
+        <section class="bcls-section">
+
+            <h2 id="schedule">Anstehende Aktivierungen anzeigen</h2>
+
+            <ol class="bcls-tasklist-restart">
+                
+                <li>Sobald geplante Aktivierungen erstellt wurden, können Sie sie im <strong>Ereignisse verwalten&gt; Stehen zu </strong> Tab. Das nächste Mal <strong>Start</strong> und <strong>Halt</strong> Daten werden unter dem angezeigt <strong>Bevorstehende</strong> Titel.
+                    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/upcoming-events.png" /></figure>
+                </li>
+                <li>Das <strong>Show</strong> Mit dem Auswahlfeld können Sie nur geplante Ereignisse anzeigen.
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/assets/images/live-module/scheduling/show-events.png" /></figure>
+                </li>
+                <li>Sobald ein Ereignis beginnt, wird es auf dem angezeigt <strong>Wohnen</strong> Registerkarte und die <strong>Start</strong> Zeit wird deaktiviert.
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/streaming-event.png" /></figure>
+
+                </li>
+            </ol>
+
+
+
+            </section>
+
+
+
+
+</article>

@@ -1,0 +1,138 @@
+---
+title: 'Planen der Clip-Generierung für einen Live-Stream'
+description: 'Mit dem Clip-Endpunkt können Sie das Clip-Ereignis eines vorhandenen Live-Jobs planen. Zum angegebenen Zeitpunkt führt unser System die erforderlichen API-Aufrufe durch, um einen Clip Job in Ihrem Namen zu starten.'
+parent: Guides 
+grandparent: Live API
+layout: staging
+---
+
+<!-- Remember to change API reference links when going live -->
+
+<h1>{{ page.title }}</h1>
+<article class="bcls-article">
+  <summary>{{ page.description }}</summary>
+	<section class="bcls-section">
+		<h2 id="Requirements">Bedarf</h2>
+		<ul>
+			<li>Der Live-API-Schlüssel für Ihr Konto.</li>
+			<li>In Ihrem Live-Konto muss die Scheduler-Überschreibung aktiviert sein.</li>
+		</ul>
+	</section>
+	<section class="bcls-section">
+		<h2 id="Create_a_Clip_scheduler_workflow">Erstellen Sie einen Clip Scheduler-Workflow</h2>
+		<p>Beim Erstellen eines Clips müssen Sie sowohl die Clip-Zeitgrenze (im <code translate="no">Ausgang</code> Feld) und eine geplante Zeit (<code translate="no">time_utc</code> Feld), um die Clip-Anfrage zu stellen.</p>
+		<p>Die <code translate="no">Ausgang</code> -Feld im Anforderungstext unterstützt alle die gleichen Felder des <code translate="no">Ausgänge</code> Feld im Standard-VOD-Endpunkt. Jedoch, <strong>Geplante Clips unterstützen nur eine einzelne Ausgabe und keine Liste</strong>. Sehen <a href="/live-api/guides/live-api-creating-vod-clips.html">VOD-Clipping-Support-Dokumente</a> Einzelheiten zu verfügbaren Feldern.</p>
+		<p>Normalerweise würden Sie einstellen <code translate="no">time_utc</code> um die Endbegrenzung Ihres Clips anzupassen. Die geplante Zeit <strong>MUSS</strong> hinter der Endgrenze des Clips liegen, andernfalls schlägt die Clipanforderung zum geplanten Zeitpunkt fehl.</p>
+		<p>Zeitstempel für die <code translate="no">time_utc</code> Das Feld muss im UTC-Format als Unix-Zeitstempel in Sekunden formatiert sein. Sie können verwenden <a href="https://www.unixtimestamp.com/" rel="nofollow">https://www.unixtimestamp.com/</a> zur Umwandlung.</p>
+		<p>Nehmen wir an, wir möchten einen 15-Minuten-Clip planen, der bei <code translate="no">2021-02-09T 13:55:00 + 00:00 beginnt</code>. Wir können die nutzen <code translate="no">output.start_time</code> und <code translate="no">output.end_time</code> um unsere Clipgrenze als Unix-Zeit in Sekunden anzugeben. (Wieder sehen <a href="/live-api/guides/live-api-creating-vod-clips.html">VOD-Clipping-Support-Dokumente</a> Einzelheiten zu verfügbaren Feldern).</p>
+		<pre><code translate="no">start_time: 2021-02-09T 13:55:00 + 00:00 = 1612878900 end_time: 2021-02-09T 14:10:00 + 00:00 = 1612879800 </code></pre>
+		<p>Da der Scheduler auch eine Zeit benötigt, um die Clip-Anfrage zu planen, können wir den gleichen Wert verwenden wie <code translate="no">endzeit</code> da es auch Unix-Zeit in Sekunden ist.</p>
+		<p>Wir wollen auch ein Videocloud-Video für den Clip erstellen, also binden wir das in die <code translate="no">Ausgang</code>. Zum Zeitpunkt der Planung des Workflows wird ein Videocloud-Video erstellt, dessen ID in der Antwort zurückgegeben wird, damit Sie die Video-ID kennen, bevor der Clip erstellt wird. Wenn Sie die Clipanforderung später abbrechen oder sie zum geplanten Zeitpunkt fehlschlägt, wird das Videocloud-Video NICHT aus Ihrem Konto entfernt.</p>
+		<h3>Anfrage</h3>
+		<p>Um den Workflow zu erstellen, gehen Sie wie folgt vor: <code translate="no">POST</code> Anfrage:</p>
+		<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip</code></pre>
+		
+		<h3>Überschriften</h3>
+		
+<pre><code translate="no">Inhaltstyp: Anwendung/json X-API-KEY: Ihr API-Schlüssel</code></pre>
+		
+		<h3>Text anfordern</h3>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"job_id":  "your Job ID",
+	"description": "My Scheduled Clip",
+	"clip": {
+		"output": {
+			"label": "My Scheduled Clip",
+			"start_time": 1612878900,
+			"end_time": 1612879800,
+			"videocloud": {
+				"video": {
+					"name": "My Scheduled Clip"
+				}
+			}
+		},
+		"time_utc": 1612879800
+	}
+}</code></pre>
+		
+<details>
+	<summary>Beispielantwort</summary>
+<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "pending", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879800, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" }} }, "time_utc": 1612879800 } "workflow_id": "d44cf29f4f184757ac0995beb8a0097e", }</code></pre>
+</details>		
+		<p>Beachten Sie, dass <code translate="no">clip.output.videocloud.video.id</code> enthält die ID des neu erstellten Videocloud-Videos. Bei <code translate="no">time_utc</code> die Videoquelle wird mit dem aufgenommenen Clip aktualisiert.</p>
+		</section>
+		<section class="bcls-section">
+			<h2 id="Update_a_Clip_scheduler_workflow">Aktualisieren Sie einen Clip Scheduler-Workflow</h2>
+			<p>Sie können beide aktualisieren <code translate="no">Ausgang</code> und <code translate="no">time_utc</code> Ihres Clips. Diese können nur aktualisiert werden, wenn sich der Job im Status „Ausstehend“ befindet: <code translate="no">"zustand": "ausstehend"</code>.</p>
+			<p>Nach dem vorherigen Beispiel soll der Clip 5 Minuten kürzer als geplant sein. Beim Aktualisieren der <code translate="no">Ausgang</code> Feld müssen Sie das vollständige Objekt angeben, nicht nur die vorgenommenen Änderungen. Dies schließt die Videocloud-Video-ID ein, die vom obigen Erstellungsaufruf zurückgegeben wurde.</p>
+			<p>Beachten Sie, dass wir in diesem Beispiel beide aktualisiert haben <code translate="no">endzeit</code> und <code translate="no">time_utc</code> um die 5-Minuten-Verkürzung widerzuspiegeln.</p>
+			<h3>Anfrage</h3>
+			<p>Gehen Sie wie folgt vor, um den Workflow zu aktualisieren: <code translate="no">STELLEN</code> Anfrage:</p>
+			<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip/<span class="bcls-input">{workflow_id}</span></code></pre>
+			
+			<h3>Überschriften</h3>
+			
+	<pre><code translate="no">Inhaltstyp: Anwendung/json X-API-KEY: Ihr API-Schlüssel</code></pre>
+			
+			<h3>Text anfordern</h3>
+	<pre class="line-numbers"><code class="language-json" translate="No">{
+		"clip": {
+			"output": {
+				"label": "My Scheduled Clip",
+				"start_time": 1612878900,
+				"end_time": 1612879500,
+				"videocloud": {
+					"video": {
+						"id": "70702010152202",
+						"name": "My Scheduled Clip"
+					}
+				}
+			},
+			"time_utc": 1612879500
+		}
+	}</code></pre>
+			
+	<details>
+		<summary>Beispielantwort</summary>
+	<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "pending", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879500, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" }} }, "time_utc": 1612879500 } "workflow_id": "d44cf29f4f184757ac0995beb8a0097e", }</code></pre>
+	</details>		
+	</section>
+	<section class="bcls-section">
+		<h2 id="Cancel_a_Clip_scheduler_workflow">Brechen Sie einen Clip Scheduler-Workflow ab</h2>
+		<p>Sie können den Clip mit a cancel abbrechen <code translate="no">LÖSCHEN</code> Anfrage.</p>
+		<p>Beachten Sie, dass beim Abbrechen eines Clip-Workflows alle zum Zeitpunkt der Planung erstellten Videocloud-Videos erstellt werden <strong>NICHT</strong> vom Backend entfernt werden. Sie müssen verwaiste Videos manuell aus Ihrem Videocloud-Konto entfernen.</p>
+		<h3>Anfrage</h3>
+		<p>Gehen Sie wie folgt vor, um den Workflow zu aktualisieren: <code translate="no">LÖSCHEN</code> Anfrage:</p>
+		<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip/<span class="bcls-input">{workflow_id}</span></code></pre>
+		
+		<h3>Überschriften</h3>
+		
+X-API-KEY: Ihr API-Schlüssel</code></pre>
+		
+		<h3>Text anfordern</h3>
+		<p>Für diese Anfrage gibt es keinen Anfragetext.</p>		
+<details>
+	<summary>Beispielantwort</summary>
+<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "cancelled", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879500, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" }} }, "time_utc": 1612879500 } "workflow_id": "d44cf29f4f184757ac0995beb8a0097e", }</code></pre>
+</details>		
+</section>
+<section class="bcls-section">
+  <h2 id="notifications">Benachrichtigungen</h2>
+  <p>Optional können Sie Benachrichtigungen beim Erstellen des Workflows konfigurieren. Sie müssen eine URL für unseren Service angeben <code translate="no">POST</code> zu. Wir werden eine Benachrichtigung senden, wenn der Scheduler den Clip-Aufruf tätigt. Sie können auch so konfigurieren, dass Sie eine Benachrichtigung erhalten <code translate="no">n</code> Sekunden vor dem Clip. Siehe die <a href="/live-api/guides/live-scheduler-notifications.html">Live Scheduler-Benachrichtigungen</a> für mehr Details.</p>
+	<details>
+		<summary>Beispielanforderungshauptteil</summary>
+	<pre><code class="language-json" translate="no">{ "job_id": "Ihre Job-ID", "Beschreibung": „Mein geplanter Clip“, <span class="bcls-highlight">„notification_url“: "http://example.com/live/clip/callbacks"</span>, „clip“: { "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879800, "videocloud": { "video": { "name": "My Scheduled Clip" }}}, „time_utc“: 1612879800, <span class="bcls-highlight">„benachrichtigung“: 600</span>}}</code></pre>
+	</details>
+</section>
+<section class="bcls-section">
+	<h2 id="related_topics">Verwandte Themen</h2>
+	<ul>
+		<li><a href="/live-api/guides/live-scheduler.html">Überblick: Live-Scheduler</a></li>
+		<li><a href="/live-api/guides/live-scheduler-stop-start.html">Planen der Aktivierung / Deaktivierung eines SEP-Streams</a></li>
+		<li><a href="/live-api/guides/live-scheduler-notifications.html">Live Scheduler-Benachrichtigungen</a></li>
+		<li><a href="/live-api/guides/live-api-static-entry-points.html">SEP-Jobs (Static Entry Point)</a></li>
+		<li><a href="/live-api/references/reference-staging.html">Live API-Referenz</a></li>
+		<li><a href="/live-module/scheduling-live-event.html">Automatisches Starten / Stoppen von Live-Ereignissen im Kontrollraum</a></li>
+	</ul>
+</section>
+</article>
