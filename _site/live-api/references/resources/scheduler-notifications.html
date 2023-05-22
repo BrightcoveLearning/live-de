@@ -1,0 +1,115 @@
+﻿<article class="markdown-body entry-content" itemprop="text">
+  <h1>
+    <a id="user-content-scheduler-notifications" class="anchor" aria-hidden="true" href="#scheduler-notifications">
+      <svg
+        class="octicon octicon-link"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="16"
+        height="16"
+        aria-hidden="true"
+      >
+        <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+      </svg>
+    </a>Scheduler-Benachrichtigungen
+  </h1>
+  <p>Beim Erstellen von Workflows mit dem Scheduler können Sie optional Benachrichtigungen konfigurieren. Nach Abschluss einer Aufgabe sendet der Scheduler mithilfe der http-Methode eine Benachrichtigung an den konfigurierten Endpunkt <code translate="no">POST</code> mit Details darüber, welche Aktion ausgeführt wurde und welche Erfolge / Misserfolge erzielt wurden. Sie können auch eine Vorbenachrichtigung über eine anstehende Aufgabe konfigurieren. Bitte wende dich an die <a href="/live-api/references/reference-staging.html">API-Referenz</a> zum Konfigurieren von Benachrichtigungen für Ihren Workflow-Typ.
+  </p>
+  <h2>
+    <a id="user-content-notification-body" class="anchor" aria-hidden="true" href="#notification-body">
+      <svg
+        class="octicon octicon-link"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="16"
+        height="16"
+        aria-hidden="true"
+      >
+        <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+      </svg>
+    </a>Meldestelle
+  </h2>
+  <p>Wenn der Server eine Benachrichtigung an Ihre sendet <code translate="no">notification_url</code> enthält die Anforderung einen JSON-Body
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Feld</th>
+        <th>Beschreibung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aktion</td>
+        <td>Aktionsname. Sehen <a href="#Actions">Aktionen</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Arbeitsablauf</td>
+        <td>Aktualisierter Workflow nach Abschluss der Aktion. Die Struktur hängt vom Workflow-Typ ab.</td>
+      </tr>
+      <tr>
+        <td>Fehler</td>
+        <td>Wenn beim Abschluss der Aktion ein Fehler aufgetreten ist, enthält dieses Feld den Fehler. Wert hängt vom Aktionstyp ab.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a id="user-content-actions" class="anchor" aria-hidden="true" href="#actions">
+      <svg
+        class="octicon octicon-link"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="16"
+        height="16"
+        aria-hidden="true"
+      >
+        <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+      </svg>
+    </a>Aktionen
+  </h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nennen</th>
+        <th>Workflow-Typ</th>
+        <th>Beschreibung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>benachrichtigen-aktivieren</td>
+        <td>jobstartstop</td>
+        <td>Heads-up-Benachrichtigung, dass Ihr Job bald aktiviert wird.</td>
+      </tr>
+      <tr>
+        <td>aktivieren</td>
+        <td>jobstartstop</td>
+        <td>Jobaktivierung abgeschlossen. Wenn <code translate="no">"error"</code> vorhanden ist, ist die Aktivierung fehlgeschlagen und die Deaktivierung wird abgebrochen.
+        </td>
+      </tr>
+      <tr>
+        <td>benachrichtigen-deaktivieren</td>
+        <td>jobstartstop</td>
+        <td>Heads-up-Benachrichtigung, dass Ihr Job bald aktiviert wird.</td>
+      </tr>
+      <tr>
+        <td>deaktivieren</td>
+        <td>jobstartstop</td>
+        <td>Jobdeaktivierung erzwingen. Wenn <code translate="no">"error"</code> vorhanden ist, ist die Deaktivierung fehlgeschlagen.
+        </td>
+      </tr>
+      <tr>
+        <td>Notify-Clip</td>
+        <td>Klemme</td>
+        <td>Heads-up-Benachrichtigung, dass Ihr Clip bald angefordert wird.</td>
+      </tr>
+      <tr>
+        <td>Klemme</td>
+        <td>Klemme</td>
+        <td>Clip-Anfrage abgeschlossen. Wenn <code translate="no">"error"</code> vorhanden ist, ist die Anfrage fehlgeschlagen.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</article>

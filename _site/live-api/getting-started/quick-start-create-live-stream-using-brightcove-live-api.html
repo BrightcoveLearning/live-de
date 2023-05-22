@@ -1,0 +1,1489 @@
+﻿<!DOCTYPE html>
+<html lang="de"> 
+    <head>
+        <title>Schnellstart: Erstellen Sie einen Live-Stream mit der Brightcove Live-API</title>
+        
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex,nofollow"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        
+        <!-- Google Font -->
+        <link href="/assets/s-site-assets-stylesheets/fonts/poppins.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/fonts/articulat-site.css">
+        <link href="/assets/s-site-assets-stylesheets/fonts/source-code-pro.css" rel="stylesheet">
+        
+        <!-- FontAwesome JS-->
+        <script src="https://kit.fontawesome.com/d67c74a882.js" crossorigin="anonymous"></script>  
+        
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.css">
+
+        <!-- Theme CSS -->  
+        <link id="theme-style" rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/css/theme.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-stylesheets/prism.css">
+        <link rel="stylesheet" href="/assets/s-site-assets-template-stylesheets/custom-css/styles.css">
+
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBJC11HF8Z"></script>
+        <script translate="no">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XBJC11HF8Z');
+        </script>
+        <script src="/assets/s-site-assets-scripts/sixth-sense.js"></script>
+        <script src="/assets/s-site-assets-scripts/sajari-head.js"></script>
+        <script src="/assets/s-site-assets-scripts/feather.min.js"></script>
+
+    </head> 
+
+    <body class="docs-page">
+
+
+<header class="header fixed-top">
+  <div class="branding docs-branding">
+    <div class="container-fluid position-relative py-2">
+      <div class="docs-logo-wrapper">
+        <button id="docs-sidebar-toggler" class="docs-sidebar-toggler"
+          type="button">
+          <span></span> <span></span> <span></span>
+        </button>
+        <div class="site-logo"><a class="navbar-brand" href="https://support.brightcove.com/" style="margin-left: 15px;"> <img class="logo-icon me-2" src="/assets/s-site-assets-template-stylesheets/images/bc_logo_black_1@1x.png" alt="logo" style="margin-bottom: 9px;"/>
+            <!-- <span class="logo-text">BRIGHTCOVE</span> -->
+          </a></div>
+      </div><!--//docs-logo-wrapper-->
+
+      <div class="docs-top-utilities d-flex justify-content-end
+        align-items-center">
+        
+        <!-- Search bar -->
+        <div id="nav-search-box" class="top-search-box d-none d-lg-flex" style="margin-right: 10px ;"></div>
+
+<select id="site_select" class="form-select select-focus" style="width:
+          20%; margin-right: 10px;" translate="no">
+          <option value="">Other Brightcove Docs</option>
+          
+          
+          <option value="https://support.brightcove.com" translate="no">Documentation Home</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD --</option>
+          
+          
+          
+          <option value="https://studio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Studio</option>
+          
+          
+          
+          <option value="https://mstudio.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Marketing Studio</option>
+          
+          
+          
+          <option value="https://player.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Player Development</option>
+          
+          
+          
+          <option value="https://apis.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Platform APIs</option>
+          
+          
+          
+          <option value="https://sdks.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud Device SDKs</option>
+          
+          
+          
+          <option value="https://integrations.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Integrations and CMS Connectors</option>
+          
+          
+          
+          <option value="https://general.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Video Cloud General Information</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO ESSENTIALS --</option>
+          
+          
+          
+          <option value="https://audience-insights.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Audience Insights</option>
+          
+          
+          
+          <option value="https://beacon-help.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Studio</option>
+          
+          
+          
+          <option value="https://beacon.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Beacon Classic</option>
+          
+          
+          
+          <option value="https://corptv.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;CorpTV</option>
+          
+          
+          
+          <option value="https://live.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Live</option>
+          
+          
+          
+          <option value="https://zencoder.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Zencoder</option>
+          
+          
+          
+          <option value="https://support.brightcove.com/" translate="no">-- VIDEO CLOUD ADD-ONS --</option>
+          
+          
+          
+          <option value="https://gallery.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Gallery</option>
+          
+          
+          
+          <option value="https://studio.support.brightcove.com/social/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Social</option>
+          
+          
+          
+          <option value="https://interactivity.support.brightcove.com/index.html" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Interactivity</option>
+          
+          
+          
+          <option value="https://ssai.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove SSAI</option>
+          
+          
+          
+          <option value="https://campaign.support.brightcove.com" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;Brightcove Campaign</option>
+          
+          
+        </select>
+
+        <select id="language_select" class="form-select select-focus" style="width: 10%;"
+          onchange="doGTranslate(this);" translate="no">
+          <!-- <option value="">Select Language</option> -->
+          <option value="en|en" translate="No">English</option>
+          <option value="en|zh-TW" translate="No">繁體中文</option>
+          <option value="en|fr" translate="No">Français</option>
+          <option value="en|de" translate="No">Deutsche</option>
+          <option value="en|ja" translate="No">日本語</option>
+          <option value="en|ko" translate="No">한국어</option>
+          <option value="en|es" translate="No">Español</option>
+        </select>
+
+        <script translate="no">
+          /* <![CDATA[ */
+          function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
+          /* ]]> */
+        </script>
+      </div>
+    </div>
+  </div>
+</header><!--//header-->
+
+<div class="docs-wrapper">
+  <div id="docs-sidebar" class="docs-sidebar" style="padding-right: 15px;">
+    <div id="nav-search-box" class="top-search-box d-lg-none p-3"></div>
+    <div class="row">
+      
+        <div id="side_nav" style="margin-left: 1em; display: inline-block; border-right: 1px solid #e5e5e6; padding-right: 1em;">
+          
+          <nav class="docs-nav sidenav" aria-label="Main">
+            <ul class="site-nav" style="list-style-type: none;">
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/index.html">Zuhause</a></li>
+            
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/get-started/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Erste Schritte</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/brightcove-live-training-videos.html">Brightcove Live-Schulungsvideos</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/delivering-live-streams.html">Bereitstellung von Livestreams</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/live-module-guidelines-and-best-practices.html">Brightcove Live: Empfohlene Vorgehensweise</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Schritt für Schritt: Verwenden des Live-Moduls mit OBS</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/step-step-using-live-module-telestream-wirecast.html">Schritt für Schritt: Verwenden des Live-Moduls mit Wirecast</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/get-started/step-step-live-srt.html">Schritt für Schritt: Streamen eines SRT-Live-Events</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/general/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Allgemeine Informationen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/captions-with-live-streams.html">Untertitel bei Live-Streams</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/live-drm.html">Live-DRM</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/live-video-glossary.html">Live-Video-Glossar</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/reducing-latency-live-streams.html">Reduzieren der Latenz für Livestreams</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/supported-encoders-live-events.html">Unterstützte Encoder für Live-Events</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/general/using-mtr-to-look-at-network-traffic.html">Verwenden von MTR (mein Traceroute)</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/live-module/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Verwenden des Live-Moduls</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/live-module/getting-started-index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Erste Schritte</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/creating-and-managing-live-events-using-live-module.html">Erstellen und Verwalten von Live-Events</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/creating-video-clip-using-live-module.html">Erstellen eines Videoclips</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/reviewing-live-analytics.html">Überprüfung von Live-Analysen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/scheduling-live-event.html">Planen von Live-Veranstaltungen</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/live-module/advertising-index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Werbung</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/implementing-server-side-ads-live-module.html">Implementieren von Server-Side-Ads (SSAI)</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/client-side-preroll-with-live-ssai.html">Clientseitige Preroll-Anzeigen mit Live-SSAI</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/live-module/guides-index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Leitfäden</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/audio-only-live-events.html">Nur-Audio-Live-Veranstaltungen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/multi-language-audio.html">Mehrsprachiges Audio mit Live-Modul</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/playback-restrictions-live-module.html">Wiedergabebeschränkungen bei Live-Ereignissen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/live-redundancy.html">Live-Redundanz verwenden</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">RTMP-Live-Ausgaben verwenden</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/live-module/hosting-platforms-index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Hosting-Plattformen</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/overview-hosting-platforms.html">Überblick: Hosting-Plattformen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/live-module/zoom-live-integration.html">Einbindung eines Zoom-Meetings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://studio.support.brightcove.com/social/general/publishing-live-event-facebook.html">Veröffentlichen eines Live-Events auf Facebook</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://studio.support.brightcove.com/social/general/publishing-live-event-youtube.html">Veröffentlichen eines Live-Events auf YouTube</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/web-conferencing/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Webkonferenzen</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-zoom-conference-brightcove-live.html">Zoom-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex-Konferenz zu Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-avaya-conference-brightcove-live.html">Avaya-Konferenz auf Brightcove Live</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/web-conferencing/host-inxpo-live.html">INXPO-Veranstaltung auf Brightcove Live</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Arbeiten mit der Live-API</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="https://apis.support.brightcove.com/live-api/getting-started/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Live-API: Erste Schritte</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/getting-started/overview-brightcove-live-api.html">Überblick: Live-API</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Erstellen eines Livestreams mit der API</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="https://apis.support.brightcove.com/live-api/code-samples/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Live-API: Codebeispiele</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/code-samples/live-api-sample-create-live-job.html">Erstellen Sie einen Live-Job</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">Erstellen eines Live-Jobs für MPEG2-TS-Eingabe</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">Verwendung von RTMP-Ausgaben für Live-Veranstaltungen</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="https://apis.support.brightcove.com/live-api/references/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Live-API: Verweise</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/references/live-api-error-messages.html">Fehlermeldungen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/references/live-api-release-notes.html">Versions-Hinweise</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/references/reference.html">Live-API-Referenz</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="https://apis.support.brightcove.com/live-api/ssai/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Live-API: SSAI</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Cue Points und Ad Beacons mit SSAI</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">Serverseitige Anzeigeneinfügung (SSAI)</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/ssai/overview-player-enhancements-live-ssai.html">Überblick: Spielerverbesserungen für Live-SSAI</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Live-API: Anleitungen</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/brightcove-live-best-practices.html">Best Practices für Brightcove Live</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/brightcove-live-program-ad-metadata-api.html">Anzeigenmetadaten-API für das Brightcove Live-Programm</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-creating-frame-accurate-clip.html">Erstellen eines Frame-genauen Clips</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-creating-vod-clips.html">VOD-Clips erstellen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/getting-list-live-or-vod-jobs.html">Eine Liste von Live- oder VOD-Jobs abrufen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3-Metadaten mit Zeitangabe einfügen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-drm-live-api.html">Live-DRM über die Live-API</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/managing-credentials-live-api.html">Verwalten von Anmeldeinformationen für die Live-API</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-multi-language-audio.html">Mehrsprachiges Audio mit Live-API</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-notifications.html">Benachrichtigungen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html">Wiedergabebeschränkungen bei Live-Streams</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/general/reducing-latency-live-streams.html">Reduzieren der Latenz für Livestreams</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-rtmp-outputs.html">RTMP-Ausgänge</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-static-entry-points.html">Statische Einstiegspunkte</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/signed-urls-and-token-auth-live-stream.html">Signierte URLs und Token-Authentifizierung mit einem Live-Stream</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/using-live-redundancy.html">Live-Redundanz verwenden</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="https://apis.support.brightcove.com/live-api/guides/live-api-vod-live-event.html">VOD von Live-Veranstaltung</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/admin/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Konten verwalten</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/admin/general/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Allgemeine Informationen</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/general/configuring-server-side-ad-settings.html">Serverseitige Anzeigeneinstellungen konfigurieren</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/general/managing-live-settings.html">Live-Einstellungen verwalten</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/general/managing-api-authentication-credentials.html">Verwalten von API-Authentifizierungsdaten</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+              
+
+              <li class="nav-item subsection-title">
+                
+                <a class="nav-link" href="/admin/ingest-profiles/index.html"> <span class="theme-icon-holder me-2"><i class="fa-solid fa-minus"></i></span>&nbsp;Verwaltung von Ingest-Profilen</a>
+                
+
+                <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/ingest-profiles/creating-custom-live-ingest-profiles.html">Erstellen von benutzerdefinierten Live-Aufnahmeprofilen</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/ingest-profiles/fields-custom-live-ingest-profiles.html">Felder für benutzerdefinierte Live-Aufnahmeprofile</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="nav-item"><a class="nav-link" href="/admin/ingest-profiles/standard-live-ingest-profiles.html">Standard-Live-Aufnahmeprofile</a></li>
+                  
+                  
+                  
+                </ul>
+              </li>
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/release-notes/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Hinweise zur Veröffentlichung</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/release-notes/live-api-release-notes.html">Live-Veröffentlichungshinweise</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+            
+            <li class="nav-item section-title"><a class="nav-link" href="/support/index.html"><span class="theme-icon-holder me-2"> <i class="fa-solid fa-plus"></i></span>&nbsp;Unterstützung</a>
+              <ul role="list" class="section-items list-unstyled nav flex-column pb-3" style="display:none;">
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/viewing-brightcove-system-status-page.html">Anzeigen der Seite „Brightcove System Status“</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/contact-sales.html">Kontakt zum Vertrieb</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/opening-case-with-brightcove-support.html">Einen Supportfall öffnen</a></li>
+              
+              
+              
+              
+              
+              <li class="nav-item"><a class="nav-link" href="/support/reset-support-portal-password.html">Passwort für das Support-Portal zurücksetzen</a></li>
+              
+              
+              
+            </ul>
+            </li>
+            
+            
+          </ul>
+          </nav>
+        </div>
+      </div>
+    </div><!--//docs-sidebar-->
+  </div>
+</div>
+
+<div style="margin-top: 20px;">
+  <div class="docs-content" style="padding-bottom: 0px;">
+    <div class="container">
+      <div class="docs-overview">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/">Zuhause</a></li>
+            
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/live-api/">Live-Api</a></li>
+            
+            
+            
+            <li class="breadcrumb-item"><a class="theme-link" href="/live-api/getting-started/">Erste Schritte</a></li>
+            
+            
+            
+            <li class="breadcrumb-item active" aria-current="page">Schnellstart: Erstellen Sie einen Live-Stream mit der Brightcove Live-API</li>
+            
+            
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="docs-content">
+  <div class="container">
+    <div class="docs-overview py-5">
+      
+      <div class="centered-inpage-nav" id="centered_inpage_nav">
+        <nav id="centered_toc">
+          <select id="centered_in_page_toc" class="form-select select-focus"></select>
+        </nav>
+      </div>
+      <br/>
+      
+      
+<h1>Diese Seite ist umgezogen - Sie werden weitergeleitet zum <a href="https://apis.support.brightcove.com/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">neuen Ort</a> in 3 Sekunden. Bitte aktualisiere deine Lesezeichen!</h1>
+<script type="text/javascript">
+var t = setTimeout(function() {
+    window.location.href = 'https://apis.support.brightcove.com/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html';
+}, 3000);
+</script>
+<article class="bcls-article">
+  <h1>Schnellstart: Erstellen Sie einen Live-Stream mit der Brightcove Live-API</h1>
+  <summary>Dieses Tutorial führt Sie durch die Erstellung eines Live-Stream-Jobs mithilfe der Live-API.</summary>
+
+
+
+<section class="bcls-section">
+<h2 id="What_you_need">Was du brauchst</h2>
+
+<p>Um dieses Tutorial abzuschließen, benötigen Sie Folgendes.</p>
+
+<ul>
+	<li>Ein für die Live-API eingerichtetes Konto</li>
+	<li>Ein API-Schlüssel für die Live-API (wird Ihnen bei der Einrichtung des Kontos zur Verfügung gestellt)</li>
+	<li>Ein Video Cloud-Konto (nicht erforderlich, um den Livestream-Auftrag zu erstellen, aber erforderlich, um die Wiedergabe im Brightcove Player einzurichten)</li>
+	<li>Wenn Sie die verwenden <span translate="No">CMS API</span> Um das Video Cloud-Video anstelle von Studio zu erstellen, benötigen Sie Client-Anmeldeinformationen mit Video- / Lese- und Video- / Schreibberechtigungen. Wenn Sie mit dem Abrufen von Client-Anmeldeinformationen nicht vertraut sind, lesen Sie die <a href="#authentication">Authentifizierung</a> Abschnitt unten.</li>
+	<li>Die Möglichkeit, REST-API-Anfragen entweder über <a href="https://apis.support.brightcove.com/oauth/guides/oauth-create-client-credentials-using-curl.html">cURL</a> oder ein REST-Client wie <a href="https://apis.support.brightcove.com/general/use-insomnia-api-requests.html">Schlaflosigkeit</a> oder <a href="https://apis.support.brightcove.com/oauth/guides/oauth-create-client-credentials-using-postman.html">Postbote</a>.
+	<p>Um Ihnen zu helfen, haben wir einige Importe von Insomnia und Postman vorbereitet, die Sie für die Übung verwenden können (bei Brightcove Learning Services bevorzugen und verwenden wir Insomnia, aber Postman funktioniert auch, wenn Sie dies haben):</p>
+
+	<p>In jeder der ZIP-Dateien finden Sie eine Readme-Seite, die Ihnen weiterhilft.</p>
+
+	<ul>
+		<li><a href="/assets/downloads/insomnia-imports.zip">Import von Insomnia Workspace</a></li>
+		<li><a href="/assets/downloads/postman-imports.zip">Postbotensammlung und Umweltimport</a></li>
+	</ul>
+	</li>
+	<li>Um einen tatsächlichen Live-Stream zu erstellen, benötigen Sie entweder einen Software- oder Hardware-Encoder für das Live-Streaming. Die folgenden Anweisungen enthalten Schritte zum Einrichten des Livestreams mit Wirecast ( <a href="http://www.telestream.net/controls/wirecast/download-wirecast.htm">Melden Sie sich für eine Testversion an</a>). Wenn Sie einen anderen Encoder verwenden, unterscheidet sich der Prozess, sollte jedoch in Bezug auf die Informationen, die Sie aus der Live-API-Antwort benötigen, ähnlich sein.</li>
+</ul>
+</section>
+
+<section class="bcls-section">
+<h2 id="getCredentials" class="bcls-expander-head">Zugangsdaten für die CMS-API abrufen</h2>
+
+<div class="bcls-expander-content">
+<p>So verwenden Sie die <span translate="No">CMS API</span> Sie benötigen die richtigen Anmeldeinformationen.</p>
+
+<p>Der einfachste Weg, um Anmeldeinformationen zu erhalten, ist in den meisten Fällen der Abschnitt Studio-Admin-API-Authentifizierung (erfordert Administratorberechtigungen für Ihr Konto). Weitere Informationen finden Sie unter <a href="https://studio.support.brightcove.com/admin/general/managing-api-authentication-credentials.html">Verwalten von API-Authentifizierungsdaten</a>.  In diesem Fall sind die erforderlichen Berechtigungen für <strong>Beziehungen teilen</strong> - Sie benötigen sowohl Lese- als auch Schreibrechte:</p>
+
+<figure class="bcls-figure"><img class="bcls-image" alt="Beziehungsberechtigungen teilen" src="/assets/images/live-api/17765/17765-api-permissions.png"/>
+<figcaption class="bcls-caption--image">Beziehungsberechtigungen teilen</figcaption>
+</figure>
+
+<p>Wenn die von Ihnen benötigten Berechtigungen in Studio nicht verfügbar sind oder Sie sie lieber direkt von der OAuth-API beziehen möchten, verwenden Sie Ihre Wahl der <strong>Kundenanmeldeinformationen abrufen</strong> unten aufgeführten Dokumente. Für welche Option Sie sich auch entscheiden, Sie müssen nach den richtigen Betriebsberechtigungen fragen. Folgendes kann mit cURL oder Postman verwendet werden, um die richtigen Berechtigungen zu erhalten:</p>
+
+<pre class="line-numbers">
+    <code class="language-json" translate="No">"operations": [
+    "video-cloud/videos/read",
+    "video-cloud/videos/create",
+    "video-cloud/videos/update"]</code></pre>
+
+<ul>
+	<li><a href="https://apis.support.brightcove.com/oauth/guides/oauth-create-client-credentials-using-curl.html">OAuth: Client-Anmeldeinformationen mit cURL abrufen</a></li>
+	<li><a href="https://apis.support.brightcove.com/oauth/guides/oauth-create-client-credentials-using-postman.html">OAuth: Client-Anmeldeinformationen mit Postman abrufen</a></li>
+</ul>
+</div>
+</section>
+
+<section class="bcls-section">
+<h2 id="Create_live_job">Live-Job erstellen</h2>
+
+<p>Zuerst erstellen wir den Live-Job.</p>
+
+<ol class="bcls-tasklist-restart">
+	<li>Für diesen Schritt senden Sie ein <code translate="No">POST </code> Anfrage zu:
+
+	<pre class="line-numbers">
+<code class="language-http" translate="No">https://api.bcovlive.io/v1/jobs
+</code>
+</pre>
+
+	<p>Verwenden Sie Folgendes als Anforderungstext:</p>
+
+	<pre class="line-numbers">
+<code class="language-json" translate="No">{
+    "live_stream": true,
+    "region": "us-west-2",
+    "reconnect_time": 1800,
+    "outputs": [
+        {
+            "label": "hls720p",
+            "live_stream": true,
+            "width": 1280,
+            "height": 720,
+            "video_codec": "h264",
+            "h264_profile": "high",
+            "video_bitrate": 2100,
+            "segment_seconds": 4,
+            "keyframe_interval": 60
+        },
+        {
+            "label": "hls540p",
+            "live_stream": true,
+            "width": 960,
+            "height": 540,
+            "video_codec": "h264",
+            "h264_profile": "main",
+            "video_bitrate": 1500,
+            "segment_seconds": 4,
+            "keyframe_interval": 60
+        },
+        {
+            "label": "hls360p",
+            "live_stream": true,
+            "width": 640,
+            "height": 360,
+            "video_codec": "h264",
+            "h264_profile": "main",
+            "video_bitrate": 800,
+            "segment_seconds": 4,
+            "keyframe_interval": 60
+        }
+    ]
+}
+</code>
+</pre>
+	</li>
+	<li>Wenn Sie einen REST-Client verwenden, wie z <a href="https://apis.support.brightcove.com/general/use-insomnia-api-requests.html">Schlaflosigkeit</a> oder <a href="https://apis.support.brightcove.com/general/use-postman-api-requests.html">Postbote</a> , müssen Sie die folgenden Header für Ihre Anfrage hinzufügen:
+	<table class="bcls-table">
+		<thead>
+			<tr>
+				<th>Taste</th>
+				<th>Wert</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>X-API-SCHLÜSSEL</td>
+				<td><span class="bcls-input">IHR API-SCHLÜSSEL</span></td>
+			</tr>
+			<tr>
+				<td>Inhaltstyp</td>
+				<td>anwendung/json</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>Verwenden Sie den in Schritt 1 oben gezeigten Anforderungstext und stellen Sie sicher, dass Sie die Anforderung mit der POST-Methode senden.</p>
+
+	<aside class="bcls-aside bcls-aside--information">Wenn Sie cURL bevorzugen, finden Sie die <a href="#curlCreateLiveJob">äquivalenter cURL-Befehl unten</a>.</aside>
+	</li>
+	<li>Die Antwort der API sollte ungefähr so aussehen:
+	<pre class="line-numbers">
+<code class="language-json" translate="No">{
+    "id": "15981d93877e490185e6ebc9af2c79a3",
+    "outputs": [
+        {
+            "id": "0-15981d93877e490185e6ebc9af2c79a3",
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_0/chunklist.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_0/chunklist_dvr.m3u8",
+            "playback_url_vod": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_0/chunklist_vod.m3u8",
+            "label": "hls720p"
+        },
+        {
+            "id": "1-15981d93877e490185e6ebc9af2c79a3",
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_1/chunklist.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_1/chunklist_dvr.m3u8",
+            "playback_url_vod": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_1/chunklist_vod.m3u8",
+            "label": "hls540p"
+        },
+        {
+            "id": "2-15981d93877e490185e6ebc9af2c79a3",
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_2/chunklist.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_2/chunklist_dvr.m3u8",
+            "playback_url_vod": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/profile_2/chunklist_vod.m3u8",
+            "label": "hls360p"
+        },
+        {
+            "id": "3-15981d93877e490185e6ebc9af2c79a3",
+            "playlist_type": "defaultS3",
+            "type": "playlist",
+            "filename": "playlist.m3u8",
+            "dvr_filename": "playlist_dvr.m3u8",
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/playlist.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/playlist_dvr.m3u8",
+            "ssai_playback_urls": {
+                "685b239f582c42fca49da33be4f2328e": {
+                    "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/685b239f582c42fca49da33be4f2328e/playlist_ssaiM.m3u8",
+                    "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/685b239f582c42fca49da33be4f2328e/playlist_dvr_ssaiM.m3u8",
+                    "playback_added_cdns": [],
+                    "description": "House Ads - a95ac581551b4478b27910e5675db1f8",
+                    "type": "ads"
+                },
+                "c96e2d00d6744c65a3eddb15425e4a51": {
+                    "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/counter/playlist_ssaiM.m3u8",
+                    "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/counter/playlist_dvr_ssaiM.m3u8",
+                    "playback_added_cdns": [],
+                    "description": "House Counter - a95ac581551b4478b27910e5675db1f8",
+                    "type": "counter"
+                }
+            }
+        }
+        ],
+        <span class="bcls-highlight">"stream_url": "rtmp://ep1-apse2.bcovlive.io:1935/15981d93877e490185e6ebc9af2c79a3"</span>,
+        <span class="bcls-highlight">"stream_name": "alive"</span>,
+        "encryption": {},
+        "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/playlist.m3u8",
+        "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/playlist_dvr.m3u8",
+        "ssai_playback_urls": {
+            "685b239f582c42fca49da33be4f2328e": {
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/685b239f582c42fca49da33be4f2328e/playlist_ssaiM.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/685b239f582c42fca49da33be4f2328e/playlist_dvr_ssaiM.m3u8",
+            "playback_added_cdns": [],
+            "description": "House Ads - a95ac581551b4478b27910e5675db1f8",
+            "type": "ads"
+            },
+            "c96e2d00d6744c65a3eddb15425e4a51": {
+            "playback_url": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/counter/playlist_ssaiM.m3u8",
+            "playback_url_dvr": "http://bcovlive-a.akamaihd.net/15981d93877e490185e6ebc9af2c79a3/us-west-2/counter/playlist_dvr_ssaiM.m3u8",
+            "playback_added_cdns": [],
+            "description": "House Counter - a95ac581551b4478b27910e5675db1f8",
+            "type": "counter"
+        }
+    }
+}
+</code>
+</pre>
+	</li>
+	<li>Für unsere Zwecke sind die wichtigen Felder in der Antwort:
+	<ul>
+		<li>stream_url (Zeile 51)</li>
+		<li>stream_name (Zeile 52)</li>
+		<li>play_url (Zeile 54)</li>
+	</ul>
+
+	<aside class="bcls-aside bcls-aside--information">Beachten Sie, dass Sie auch die <code translate="No">playback_url_dvr</code> wenn Sie DVR-Fähigkeit wünschen; das <code translate="No">playback_url_vod</code> ist nur für den internen Gebrauch bestimmt.</aside>
+
+	<aside class="bcls-aside bcls-aside--information">Beachten Sie, dass die DVR-Funktion nur funktioniert, wenn der Player sie unterstützt. Siehe <a href="https://player.support.brightcove.com/plugins/live-dvrux-plugin.html">Live DVRUX-Plugin</a> für das erforderliche Brightcove Player-Plugin.</aside>
+
+	<p>Sie benötigen die Werte dieser Felder - aus Ihrer eigenen Antwort - in den folgenden Schritten.</p>
+	</li>
+</ol>
+</section>
+
+<section class="bcls-section">
+<h2 id="Set_up_Video_Cloud_video">Video Cloud-Video einrichten</h2>
+
+<p>Da wir nun über die Livestream-Informationen verfügen, richten wir ein Remote-Video in Video Cloud ein, damit wir es in einem Brightcove-Player wiedergeben können.</p>
+
+<div>In diesen Schritten richten wir das Video mit dem <a href="https://apis.support.brightcove.com/cms/">CMS-API</a> , aber dies kann auch in Video Cloud Studio erfolgen, wenn Sie es vorziehen - siehe die <a href="#useStudio">alternative Schritte unten</a>.
+
+<p>Wenn Sie Insomnia oder Postman verwenden, müssen Sie die OAuth2-Authentifizierung mit Ihren Client-Anmeldeinformationen einrichten. Sehen Sie sich eine der folgenden Anleitungen an, wenn Sie Hilfe benötigen:</p>
+
+<ul>
+	<li><a href="https://apis.support.brightcove.com/general/use-insomnia-api-requests.html">Schlaflosigkeit für API-Anfragen verwenden</a></li>
+	<li><a href="https://apis.support.brightcove.com/general/use-postman-api-requests.html">Verwenden Sie Postman für API-Anfragen</a></li>
+</ul>
+
+<ol class="bcls-tasklist-restart">
+	<li>
+	<p>Zuerst müssen Sie ein neues Video erstellen, indem Sie a <code translate="No">POST</code> Anfrage zu:</p>
+
+	<pre>
+<code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/<span class="bcls-input">account_id</span>/videos</code></pre>
+	</li>
+	<li>
+	<p>Der Anfragetext kann mehrere Metadaten enthalten (siehe <a href="https://apis.support.brightcove.com/cms/references/reference.html#/Videos/CreateVideo">die API-Referenz</a> für Details), aber das einzige, was erforderlich ist, ist a <code translate="No">name</code>:</p>
+
+	<pre class="line-numbers">
+<code class="language-json" translate="No">{
+    "name": "<span class="bcls-input">some name for your live stream</span>"
+}</code></pre>
+	</li>
+	<li>
+	<p>Die Antwort enthält alle Video-Metadaten, aber das wichtige Feld ist das <code translate="No">id</code>, das Sie zum Hinzufügen des Remote-Assets benötigen.</p>
+	</li>
+	<li>
+	<p>Um den HLS-Stream hinzuzufügen, erstellen Sie einen weiteren <code translate="No">POST</code> Anfrage zu:</p>
+
+	<pre>
+<code class="language-http" translate="No">https://cms.api.brightcove.com/v1/accounts/<span class="bcls-input">account_id</span>/videos/<span class="bcls-input">video_id</span>/assets/hls_manifest</code></pre>
+	</li>
+	<li>
+	<p>Diesmal lautet der Anfragetext:</p>
+
+	<pre class="line-numbers">
+<code class="language-json" translate="No">{
+    "remote_url": "<span class="bcls-input">playback_url for your live stream</span>"
+}</code></pre>
+	</li>
+</ol>
+</div>
+</section>
+
+<section class="bcls-section">
+<h2 id="Add_video_to_player">Video zu einem Player hinzufügen</h2>
+
+<p>Jetzt erstellen wir eine einfache HTML-Seite und fügen ihr einen Player mit dem gerade erstellten Video hinzu.</p>
+
+<aside class="bcls-aside bcls-aside--information">Auch hier verwenden wir Studio, um den Player-Veröffentlichungscode zu erhalten - Sie können dies auch mit dem <a href="https://apis.support.brightcove.com/player-management/getting-started/overview-player-management-api.html">Spielerverwaltungs-API</a> wenn Sie es vorziehen.</aside>
+
+<ol class="bcls-tasklist-restart">
+	<li>Erstellen Sie eine einfache HTML-Seite, um den Livestream-Player zu testen. Sie können beliebige andere oder gar keine Inhalte hinzufügen.</li>
+	<li>Wählen Sie im Studio Media Module das in den vorherigen Schritten erstellte Video aus und klicken Sie auf <strong>Veröffentlichen und einbetten &gt; Web Player</strong>:
+	<figure class="bcls-figure"><img class="bcls-image" alt="Video veröffentlichen" src="/assets/images/live-api/17765/17765-publish-video.png"/>
+	<figcaption class="bcls-caption--image">Video veröffentlichen</figcaption>
+	</figure>
+	</li>
+	<li>Wählen Sie im Dialogfeld „Veröffentlichen“ einen Player aus (der Brightcove-Standardplayer ist in Ordnung):
+	<figure class="bcls-figure"><img class="bcls-image" alt="Spieler auswählen" src="/assets/images/get-started/select-player.png"/>
+	<figcaption class="bcls-caption--image">Spieler auswählen</figcaption>
+	</figure>
+	</li>
+	<li>Scrollen Sie nach unten, stellen Sie die Größe des Players wie gewünscht ein und klicken Sie dann in den Codeblock, um den Standard-Player-Code auszuwählen - kopieren Sie diesen Code und fügen Sie ihn in den Hauptteil Ihrer HTML-Seite ein:
+	<figure class="bcls-figure"><img class="bcls-image" alt="Veröffentlichungscode abrufen" src="/assets/images/get-started/get-publishing-code.png"/>
+	<figcaption class="bcls-caption--image">Veröffentlichungscode abrufen</figcaption>
+	</figure>
+	</li>
+	<li>Speichern Sie Ihre HTML-Seite auf einem Remote-oder lokalen Webserver, damit Sie sie durchsuchen können.</li>
+	<li>Öffnen Sie die Seite in Ihrem Webbrowser. Da wir noch nicht mit dem Steamen begonnen haben, wird ein Medienfehler angezeigt:
+	<figure class="bcls-figure"><img class="bcls-image" alt="Medienfehler" src="/assets/images/get-started/media-error.png"/>
+	<figcaption class="bcls-caption--image">Medienfehler</figcaption>
+	</figure>
+	</li>
+</ol>
+</section>
+
+<section class="bcls-section">
+<h2 id="curl_commands">cURL-Befehle</h2>
+
+<p>Dieser Abschnitt bietet alternative cURL-Befehle für diejenigen, die keinen REST-Client wie Insomnia oder Postman verwenden.</p>
+
+<h3 id="curlCreateLiveJob">cURL zum Erstellen eines Live-Jobs</h3>
+
+<pre class="line-numbers">
+<code class="language-bash" translate="No">## Create Job - Simple
+curl -X "POST" "https://api.bcovlive.io/v1/jobs" \
+-H "X-API-KEY: <span class="bcls-input">YOUR_API_KEY_HERE</span>" \
+-H "Content-Type: application/json" \
+-d $'{
+"outputs": [
+{
+"height": 720,
+"video_bitrate": 2100,
+"segment_seconds": 4,
+"keyframe_interval": 60,
+"width": 1280,
+"video_codec": "h264",
+"label": "hls720p",
+"h264_profile": "high",
+"live_stream": true
+},
+{
+"height": 540,
+"video_bitrate": 1500,
+"segment_seconds": 4,
+"keyframe_interval": 60,
+"width": 960,
+"video_codec": "h264",
+"label": "hls540p",
+"h264_profile": "main",
+"live_stream": true
+},
+{
+"height": 360,
+"video_bitrate": 800,
+"segment_seconds": 4,
+"keyframe_interval": 60,
+"width": 640,
+"video_codec": "h264",
+"label": "hls360p",
+"h264_profile": "main",
+"live_stream": true
+}
+],
+"region": "us-west-2",
+"reconnect_time": 1800,
+"live_stream": true
+}'</code></pre>
+
+<p>Kopieren Sie diesen Code in einen Texteditor und ersetzen Sie ihn <code translate="No">YOUR_API_KEY_HERE </code> mit Ihrem eigenen API-Schlüssel. Kopieren Sie dann den Code, fügen Sie ihn in eine Befehlszeile ein und führen Sie ihn aus.</p>
+</section>
+
+<section class="bcls-section">
+<h2 id="useStudio">Verwenden Sie Studio, um das Video zu erstellen</h2>
+
+<p>Hier sind alternative Schritte zum Erstellen des Videos in Studio.</p>
+
+<ol class="bcls-tasklist-restart">
+	<li>Melden Sie sich bei Video Cloud Studio an.</li>
+	<li>Gehen Sie zum Medienmodul.</li>
+	<li>Klicken Sie in den Optionen auf der linken Seite auf <strong>Remote-Video hinzufügen</strong>:
+	<figure class="bcls-figure"><img class="bcls-image" alt="Remote-Video-Menüelement hinzufügen" src="/assets/images/get-started/add-remote-video-option.png"/>
+	<figcaption class="bcls-caption--image">Remote-Video-Menüelement hinzufügen</figcaption>
+	</figure>
+	</li>
+	<li>In dem <strong>Remote-Video hinzufügen</strong> Dialog, fügen Sie einen Videonamen hinzu und kopieren Sie den Wert für das <code translate="No">playback_url</code> aus der Live-API-Antwort in das URL-Feld. Klicken Sie dann auf Formatvariante <strong></strong> hinzufügen und auf <strong>Speichern</strong>:
+	<figure class="bcls-figure"><img class="bcls-image" alt="Dialog zum Hinzufügen einer Wiedergabeversion" src="/assets/images/get-started/remote-video-dialog.png"/>
+	<figcaption class="bcls-caption--image">Dialog zum Hinzufügen einer Wiedergabeversion</figcaption>
+	</figure>
+
+	<aside class="bcls-aside bcls-aside--information">Hinweis: Wenn Sie für einen sicheren Stream über HTTPS streamen möchten, ändern Sie einfach <code translate="No">http</code> in der Playback_URL zu <code translate="No">https</code>.</aside>
+	</li>
+</ol>
+</section>
+
+<section class="bcls-section">
+<h2 id="wirecast">Verwenden Sie Wirecast, um eine Veranstaltung zu streamen</h2>
+
+<p>In diesem Abschnitt werden wir den Telestream Wirecast-Encoder konfigurieren und verwenden, um ein Live-Streaming-Ereignis zu unterstützen. Die Telestream Wirecast-Software ist eine Desktop-Anwendung, die Eingaben von Ihrer Kamera erfasst und einen Stream erzeugt, der von einem CDN bereitgestellt werden kann. Beachten Sie, dass es hardware- und andere softwarebasierte Codierungslösungen gibt, die möglicherweise besser für die Bereitstellung Ihres Live-Streaming-Events geeignet sind. Sie können eine Testversion der Wirecast-Software von der <a href="http://www.telestream.net/controls/wirecast/download-wirecast.htm">Telestream-Website</a>.</p>
+
+<p class="BCL-aside">Hinweis: Sie sollten die Wirecast-Software installiert und eine Kamera an Ihren Computer angeschlossen haben, bevor Sie fortfahren.</p>
+
+<p>Gehen Sie folgendermaßen vor, um Wirecast für ein Live-Ereignis zu konfigurieren.</p>
+
+<ol class="bcls-tasklist-restart">
+	<li>Öffnen Sie Wirecast.</li>
+	<li>Bewegen Sie den Mauszeiger über die <strong>+,</strong> klicken <strong>Aufnahmegeräte</strong> und wählen Sie dann Ihre Kamera aus.
+	<figure class="bcls-figure"><img class="bcls-image" alt="Kamera auswählen" src="/assets/images/get-started/wirecast-camera-select.png"/>
+	<figcaption class="bcls-caption--image">Auswählen einer Kamera</figcaption>
+	</figure>
+	</li>
+	<li>Klicken Sie auf die Pfeilschaltfläche ( <img alt="" src="/assets/images/get-started/arrow-icon.png"/> ), damit die Kamera die Live-Aufnahme macht.
+	<figure class="bcls-figure"><img class="bcls-image" alt="Kameraeinrichtung" src="/assets/images/get-started/wirecast-camera-setup.png"/>
+	<figcaption class="bcls-caption--image">Konfiguration der Wirecast-Kamera</figcaption>
+	</figure>
+	</li>
+	<li>Drücke den <strong>Strom</strong> Taste ( <img alt="" src="/assets/images/get-started/stream-icon.png"/>). Sie werden aufgefordert, die Ausgabeeinstellungen zu konfigurieren.</li>
+	<li>Stellen Sie die <strong>Ziel</strong> zu <strong>RTMP-Server</strong>. Klicken <strong>OK</strong>.</li>
+	<li>Für die <strong>Die Anschrift</strong> , benutze die <strong>stream_url</strong> von der Live-API zurückgegeben (Schritt 3).</li>
+	<li>Verwenden Sie für den <strong></strong> Stream live.
+	<figure class="bcls-figure"><img class="bcls-image" alt="Ausgabeeinstellungen" src="/assets/images/get-started/output-settings.png"/>
+	<figcaption class="bcls-caption--image">Wirecast-Ausgangseinstellungen</figcaption>
+	</figure>
+	</li>
+	<li><strong>(Optional)</strong> Um zusätzliche Ausgabestreams zu erstellen, klicken Sie auf <strong>Hinzufügen...</strong> Wenn Sie zusätzliche Ausgabestreams erstellen, möchten Sie möglicherweise Ihr eigenes benutzerdefiniertes Codierungsprofil erstellen, um die Ausgabebitrate zu steuern. Stellen Sie sicher, dass die <strong>Strom</strong> Name spiegelt die neue Bitrate wider.</li>
+	<li>Klicken <strong>OK</strong> um die Ausgabeeinstellungen zu speichern.</li>
+	<li>Drücke den <strong>Strom</strong> Taste ( <img alt="" src="/assets/images/get-started/stream-icon.png"/>). Der Livestream sollte beginnen.</li>
+</ol>
+</section>
+
+<section class="bcls-section">
+<h2 id="conclusion">Abschluss</h2>
+
+<p>Sie können jetzt eine Live-Streaming-Sitzung erstellen. Sie müssen Ihrer Encoder-Konfiguration Folgendes hinzufügen:</p>
+
+<ul>
+	<li><code translate="No">stream_url</code>: Ergänzen Sie die <code translate="No">stream_url</code> von deinem Job (die <code translate="No">rtmp</code> die Anschrift)</li>
+	<li><code translate="No">stream_name</code>: Der Streamname muss lauten <code translate="No">alive</code></li>
+</ul>
+
+<p>Sobald Sie den Livestream starten, sollte er im Brightcove-Player angezeigt werden, den Sie in den vorherigen Schritten erstellt haben.</p>
+</section>
+</article>
+
+<!-- <div class="col-sm-2 right-side-bar" style="display: inline-block;max-width: 20%;"> -->
+  
+  <nav class="right-side-nav" id="right_side_nav">
+    <h6 class="toc">Inhalt der Seite</h6>
+    <ul id="in_page_nav" class="list-none"></ul>
+  </nav>
+  
+<!-- </div> -->
+</div>
+</div>
+</div>
+<div class="page-content" style="background-color: rgb(1, 5, 14);">
+  <div class="container" style="width: 50%;">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove-Unterstützung</h5>
+          <ul class="list-unstyled text-small" style="color: white ;">
+            <li><a class="a-text" href="https://status.brightcove.com">Systemstatus</a></li>
+            <li><a class="a-text" href="https://supportportal.brightcove.com">Kontaktieren Sie den Support</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/search.html">Suche in der gesamten Dokumentation</a></li>
+          </ul>
+        </div>
+      
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Ausbildung</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/online-training-courses.html">Online-Kurse</a></li>
+            <li><a class="a-text" href="https://studio.support.brightcove.com/get-started/training/register-training.html">Für einen Kurs anmelden</a></li>
+            <li><a class="a-text" href="https://academy.brightcove.com/">Brightcove-Akademie</a></li>
+          </ul>
+        </div>
+      
+        <div class="col-6 col-md">
+          <h5 class="h5-text">Brightcove</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="a-text" href="https://www.brightcove.com">BrightCove.com</a></li>
+            <li><a class="a-text" href="https://community.brightcove.com/s/">Bright Spot Community Forum</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/product-updates.html">Hinweise zur Produktfreigabe</a></li>
+            <li><a class="a-text" href="https://support.brightcove.com/doc-updates.html">Aktualisierte Dokumentation</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p>© Brightcove Inc. Alle Rechte vorbehalten.</p>
+      <a class="a-text" href="https://www.brightcove.com/en/legal/privacy">Datenschutz</a> <a class="a-text" href="https://www.brightcove.com/en/terms-and-conditions">Bedingungen &amp; Bedingungen</a>
+
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" target="_blank" class="gf-social-linkedin" style="margin-right: 1rem;"><i data-feather="linkedin" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://twitter.com/brightcove" title="Twitter" target="_blank" class="gf-social-twitter" style="margin-right: 1rem;"><i data-feather="twitter" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+
+        <li class="ms-3"><a href="https://www.facebook.com/Brightcove" title="Facebook" target="_blank" class="gf-social-facebook"><i data-feather="facebook" style="color:#8E9093;height: 1.25rem;"></i></a></li>
+      </ul>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
+<script translate="no">
+  var searchBox = sajari.init({
+    mode: "search-box",
+    project: "1588255093746585379", // Set this to your project.
+    collection: "brightcove-documentation", // Set this to your collection.
+    instantPipeline: "autocomplete", // Pipeline used as you type
+    inputPlaceholder: "Search", // Input element placeholder,
+    styling: {
+      components: {
+        
+        input: {
+          container: {
+          backgroundColor: 'white',
+          }
+        
+        }
+      }
+    },
+    maxSuggestions: 5, // Maximum number of suggestions to show
+      attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
+  });
+
+  
+
+
+    searchBox("sub", "pipeline.search-sent", function (_, query) {
+    window.location = "/search.html?q=" + encodeURIComponent(query.q);
+    });
+  
+  </script>
+  
+  <!-- Javascript -->          
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/popper.min.js"></script>
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+
+
+  <!-- Page Specific JS -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/smoothscroll.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script> -->
+  <!-- <script src="/assets/s-site-assets-template-stylesheets/js/highlight-custom.js"></script>  -->
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+  <script src="/assets/s-site-assets-template-stylesheets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+  <script src="/assets/s-site-assets-template-stylesheets/js/docs.js"></script> 
+
+  <!-- original footer components -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <script src="/assets/s-site-assets-scripts/https-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/setDate.js"></script>
+  <script src="/assets/s-site-assets-scripts/selector.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/prism.js"></script>
+  <script src="/assets/s-site-assets-scripts/prism-normalize.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/site.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/learning-paths/learning-paths.js"></script>
+  <!-- <script src="/assets/s-site-assets-scripts/site.js"></script> -->
+  <script src="/assets/s-site-assets-scripts/tabs.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/toc-new-template.js"></script>
+  
+  <script src="/assets/js/sites_nav.js"></script>
+  <script src="/assets/s-site-assets-scripts/bcls-utils.js"></script>
+  <script src="/assets/s-site-assets-scripts/local-link-fix.js"></script>
+  <script src="/assets/s-site-assets-scripts/sajari-reindex.js"></script>
+  <script src="/assets/js/feedback.js"></script>
+  
+  <script src="/assets/s-site-assets-scripts/sajari-search-foot.js"></script>
+  
+  <script translate="no">
+    feather.replace()
+  </script>
+  <!-- <script src="/assets/js/sajari-index.js"></script> -->
+  <script src="/assets/s-site-assets-scripts/in-app.js"></script>
+  <style translate="no">
+    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
+      background-color: lightblue;
+    }
+    div.sj-tabs__tab {
+      margin-top: 3rem;
+      margin-left: .3rem;
+      border-top-left-radius: .4rem;
+      border-top-right-radius: .4rem;
+      background-color:#e8e8e8;
+    }
+
+    div.sj-tabs__tab.sj-tabs__tab--selected {
+      border-bottom-color: crimson;
+      background-color: #f8f8f8;
+    }
+
+    p.sj-results__result__description.css-p9jvyt {
+      font-size: 1rem;
+    }
+
+    .sj-result__text.css-31l7gp h3 {
+      color: navy;
+      font-size: 1.4rem;
+    }
+    </style>
+
+  </body>
+</html> 
